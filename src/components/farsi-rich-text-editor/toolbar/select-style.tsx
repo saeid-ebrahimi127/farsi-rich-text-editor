@@ -4,8 +4,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select.tsx'
-import { useEditorState } from '@tiptap/react'
 import type { Editor } from '@tiptap/react'
+import { useEditorState } from '@tiptap/react'
 import {
   Heading1Icon,
   Heading2Icon,
@@ -42,7 +42,7 @@ export const ToolbarSelectStyle = ({ editor }: { editor: Editor }) => {
   })
 
   const handleValueChange = (newValue: string) => {
-    const chain = editor.chain().focus()
+    const chain = editor.chain()
 
     if (newValue === 'paragraph') {
       chain.setParagraph().run()
@@ -51,6 +51,8 @@ export const ToolbarSelectStyle = ({ editor }: { editor: Editor }) => {
 
       chain.toggleHeading({ level }).run()
     }
+
+    editor.chain().focus().run()
   }
 
   const current = items.find((item) => item.value === value) ?? items[0]!
