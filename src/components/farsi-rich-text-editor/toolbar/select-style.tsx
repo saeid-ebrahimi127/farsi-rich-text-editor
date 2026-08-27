@@ -4,6 +4,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select.tsx'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '#/components/ui/tooltip.tsx'
 import type { Editor } from '@tiptap/react'
 import { useEditorState } from '@tiptap/react'
 import {
@@ -62,12 +67,17 @@ export const ToolbarSelectStyle = ({ editor }: { editor: Editor }) => {
       value={value}
       onValueChange={handleValueChange}
       trigger={
-        <SelectTrigger className="mx-1 w-45">
-          <SelectValue>
-            {current.icon}
-            {current.label}
-          </SelectValue>
-        </SelectTrigger>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <SelectTrigger className="mx-1 w-45">
+              <SelectValue>
+                {current.icon}
+                {current.label}
+              </SelectValue>
+            </SelectTrigger>
+          </TooltipTrigger>
+          <TooltipContent>سبک متن</TooltipContent>
+        </Tooltip>
       }
     >
       {items.map((item) => {
