@@ -11,6 +11,8 @@ import { useEditorState } from '@tiptap/react'
 import {
   BoldIcon,
   ItalicIcon,
+  MinusIcon,
+  QuoteIcon,
   RedoIcon,
   StrikethroughIcon,
   UnderlineIcon,
@@ -28,6 +30,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
         isStrikethrough: editor.isActive('strikethrough'),
         canUndo: editor.can().undo(),
         canRedo: editor.can().redo(),
+        isBlockquote: editor.isActive('blockquote'),
       }
     },
   })
@@ -88,6 +91,22 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
       <ToolbarTextColorPicker editor={editor} />
       <ToolbarHighlightColorPicker editor={editor} />
       <ToolbarTextPositionSelect editor={editor} />
+      <Separator orientation="vertical" />
+      <ToolbarCreateButton
+        icon={<QuoteIcon />}
+        tooltip="نقل قول"
+        onClick={() => {
+          editor.chain().focus().toggleBlockquote().run()
+        }}
+        variant={editorState.isBlockquote ? 'default' : 'ghost'}
+      />
+      <ToolbarCreateButton
+        icon={<MinusIcon />}
+        tooltip="خط افقی"
+        onClick={() => {
+          editor.chain().focus().setHorizontalRule().run()
+        }}
+      />
     </div>
   )
 }
