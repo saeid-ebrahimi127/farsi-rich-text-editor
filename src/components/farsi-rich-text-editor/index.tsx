@@ -1,6 +1,8 @@
 import { FRTE_Content } from '#/components/farsi-rich-text-editor/content.tsx'
 import { FRTE_Footer } from '#/components/farsi-rich-text-editor/footer.tsx'
 import { FRTE_Toolbar } from '#/components/farsi-rich-text-editor/toolbar/index.tsx'
+import { Highlight } from '@tiptap/extension-highlight'
+import { Color, TextStyle } from '@tiptap/extension-text-style'
 import { useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
 
@@ -10,7 +12,12 @@ export const FarsiRichTextEditor = ({
   autofocus?: boolean
 }) => {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      TextStyle,
+      Color,
+      Highlight.configure({ multicolor: true }),
+    ],
     autofocus,
     immediatelyRender: false,
   })

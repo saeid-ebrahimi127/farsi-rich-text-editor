@@ -1,8 +1,12 @@
+import {
+  ToolbarHighlightColorPicker,
+  ToolbarTextColorPicker,
+} from '#/components/farsi-rich-text-editor/toolbar/color-picker.tsx'
 import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { ToolbarSelectStyle } from '#/components/farsi-rich-text-editor/toolbar/select-style.tsx'
 import { Separator } from '#/components/ui/separator.tsx'
-import { useEditorState } from '@tiptap/react'
 import type { Editor } from '@tiptap/react'
+import { useEditorState } from '@tiptap/react'
 import {
   BoldIcon,
   ItalicIcon,
@@ -80,6 +84,8 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
         }}
         variant={editorState.isStrikethrough ? 'default' : 'ghost'}
       />
+      <ToolbarTextColorPicker editor={editor} />
+      <ToolbarHighlightColorPicker editor={editor} />
     </div>
   )
 }
