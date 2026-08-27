@@ -150,3 +150,7 @@
 .prose hr {
   @apply my-[1.5em];
 }
+
+.prose a {
+  @apply text-sky-600;
+}

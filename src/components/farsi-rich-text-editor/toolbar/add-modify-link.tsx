@@ -14,8 +14,8 @@ import {
 import { FieldGroup } from '#/components/ui/field.tsx'
 import { urlHrefZodSchema, urlTextZodSchema } from '#/zod-schema/url.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEditorState } from '@tiptap/react'
 import type { Editor } from '@tiptap/react'
+import { getMarkRange, useEditorState } from '@tiptap/react'
 import { LinkIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
@@ -24,18 +24,23 @@ import z from 'zod'
 
 const title = 'افزودن / ویرایش لینک'
 
+const formSchema = z.object({
+  text: urlTextZodSchema,
+  href: urlHrefZodSchema,
+})
+
+type FormValues = z.infer<typeof formSchema>
+
 export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
   const [open, setOpen] = useState(false)
 
-  const rangeRef = useRef<{ from: number; to: number } | null>(null)
+  const rangeRef = useRef<{
+    from: number
+    to: number
+  } | null>(null)
 
   const form = useForm({
-    resolver: zodResolver(
-      z.object({
-        text: urlTextZodSchema,
-        href: urlHrefZodSchema,
-      }),
-    ),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       text: '',
       href: '',
@@ -49,7 +54,6 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
 
   const closeDialog = () => {
     rangeRef.current = null
-
     form.reset()
 
     flushSync(() => {
@@ -62,7 +66,6 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
   const handleOpenChange = (value: boolean) => {
     if (!value) {
       closeDialog()
-
       return
     }
 
@@ -78,13 +81,45 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
     setOpen(true)
   }
 
-  const handleSubmit = (data: { text: string; href: string }) => {
+  const handleSubmit = (data: FormValues) => {
     const range = rangeRef.current
 
-    if (!range) return
+    if (!range) {
+      return
+    }
 
-    editor
-      .chain()
+    const { doc, schema } = editor.state
+    const link = schema.marks.link
+
+    if (!link) {
+      return
+    }
+
+    const linkAtStart = getMarkRange(doc.resolve(range.from), link)
+
+    const linkAtEnd = getMarkRange(doc.resolve(range.to), link)
+
+    const chain = editor.chain()
+
+    if (linkAtStart && linkAtStart.from < range.from) {
+      chain
+        .setTextSelection({
+          from: linkAtStart.from,
+          to: range.from,
+        })
+        .unsetLink()
+    }
+
+    if (linkAtEnd && range.to < linkAtEnd.to) {
+      chain
+        .setTextSelection({
+          from: range.to,
+          to: linkAtEnd.to,
+        })
+        .unsetLink()
+    }
+
+    chain
       .insertContentAt(range, {
         type: 'text',
         text: data.text,
@@ -99,8 +134,10 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
           },
         ],
       })
-      .setTextSelection(range.from + data.text.length)
-      .unsetMark('link')
+      .setTextSelection({
+        from: range.from,
+        to: range.from + data.text.length,
+      })
       .run()
 
     closeDialog()
@@ -109,7 +146,9 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
   const handleRemove = () => {
     const range = rangeRef.current
 
-    if (!range) return
+    if (!range) {
+      return
+    }
 
     editor.chain().setTextSelection(range).unsetLink().run()
 
@@ -133,6 +172,7 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
       >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
+
           <DialogDescription>
             برای افزودن یا ویرایش لینک از فرم زیر استفاده نمایید.
           </DialogDescription>
