@@ -136,6 +136,17 @@
   }
 }
 
-.prose-black {
-  --tw-prose-body: black;
+.prose {
+  @apply max-w-full text-sm text-black;
+}
+
+.prose p:first-child,
+.prose h2:first-child,
+.prose h3:first-child,
+.prose h4:first-child {
+  @apply mt-0;
+}
+
+.prose hr {
+  @apply my-[1.5em];
 }

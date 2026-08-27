@@ -6,7 +6,7 @@ export const FRTE_Content = ({ editor }: { editor: Editor }) => {
     <div className="border bg-white p-2">
       <EditorContent
         editor={editor}
-        className="prose prose-black prose-h2:first:mt-0 prose-h3:first:mt-0 prose-h4:first:mt-0 prose-p:first:mt-0 prose-hr:my-5 h-96 max-h-96 max-w-full scrollbar-thin overflow-auto text-sm [&_.ProseMirror]:outline-none"
+        className="prose h-96 max-h-96 scrollbar-thin overflow-auto [&_.ProseMirror]:outline-none"
       />
     </div>
   )
