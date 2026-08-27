@@ -3,7 +3,7 @@ import {
   ToolbarTextColorPicker,
 } from '#/components/farsi-rich-text-editor/toolbar/color-picker.tsx'
 import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
-import { ToolbarSelectStyle } from '#/components/farsi-rich-text-editor/toolbar/select-style.tsx'
+import { ToolbarTextStyleSelect } from '#/components/farsi-rich-text-editor/toolbar/text-style-select.tsx'
 import { Separator } from '#/components/ui/separator.tsx'
 import type { Editor } from '@tiptap/react'
 import { useEditorState } from '@tiptap/react'
@@ -50,7 +50,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
         disabled={!editorState.canRedo}
       />
       <Separator orientation="vertical" />
-      <ToolbarSelectStyle editor={editor} />
+      <ToolbarTextStyleSelect editor={editor} />
       <Separator orientation="vertical" />
       <ToolbarCreateButton
         icon={<BoldIcon />}

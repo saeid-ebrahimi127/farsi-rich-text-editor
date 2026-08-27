@@ -31,7 +31,7 @@ const items = [
   { label: 'عنوان 6', icon: <Heading6Icon />, value: 'heading-6' },
 ]
 
-export const ToolbarSelectStyle = ({ editor }: { editor: Editor }) => {
+export const ToolbarTextStyleSelect = ({ editor }: { editor: Editor }) => {
   const value = useEditorState({
     editor,
     selector: ({ editor }) => {
