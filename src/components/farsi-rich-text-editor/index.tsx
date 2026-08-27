@@ -1,6 +1,7 @@
 import { FRTE_Content } from '#/components/farsi-rich-text-editor/content.tsx'
 import { FRTE_Footer } from '#/components/farsi-rich-text-editor/footer.tsx'
 import { FRTE_Toolbar } from '#/components/farsi-rich-text-editor/toolbar/index.tsx'
+import { CharacterCount } from '@tiptap/extension-character-count'
 import { Highlight } from '@tiptap/extension-highlight'
 import { Color, TextStyle } from '@tiptap/extension-text-style'
 import { useEditor } from '@tiptap/react'
@@ -17,6 +18,7 @@ export const FarsiRichTextEditor = ({
       TextStyle,
       Color,
       Highlight.configure({ multicolor: true }),
+      CharacterCount,
     ],
     autofocus,
     immediatelyRender: false,
@@ -28,7 +30,7 @@ export const FarsiRichTextEditor = ({
     <>
       <FRTE_Toolbar editor={editor} />
       <FRTE_Content editor={editor} />
-      <FRTE_Footer />
+      <FRTE_Footer editor={editor} />
     </>
   )
 }
