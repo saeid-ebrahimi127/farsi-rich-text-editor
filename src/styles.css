@@ -4,6 +4,8 @@
 @import './font/vazirmatn/Vazirmatn-UI-FD-NL-font-face.css';
 @import '@fontsource-variable/inter';
 
+@plugin '@tailwindcss/typography';
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -132,4 +134,8 @@
   html {
     @apply font-sans;
   }
+}
+
+.prose-black {
+  --tw-prose-body: black;
 }
