@@ -3,6 +3,7 @@ import { FRTE_Footer } from '#/components/farsi-rich-text-editor/footer.tsx'
 import { FRTE_Toolbar } from '#/components/farsi-rich-text-editor/toolbar/index.tsx'
 import { CharacterCount } from '@tiptap/extension-character-count'
 import { Highlight } from '@tiptap/extension-highlight'
+import { Link } from '@tiptap/extension-link'
 import { Subscript } from '@tiptap/extension-subscript'
 import { Superscript } from '@tiptap/extension-superscript'
 import { Color, TextStyle } from '@tiptap/extension-text-style'
@@ -16,14 +17,31 @@ export const FarsiRichTextEditor = ({
 }) => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({ link: false }),
       TextStyle,
       Color,
       Highlight.configure({ multicolor: true }),
       CharacterCount,
       Superscript,
       Subscript,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+      }),
     ],
+    editorProps: {
+      handleClick(_, _2, event) {
+        const target = event.target as HTMLElement
+
+        if (target.tagName === 'A' || target.closest('a')) {
+          event.preventDefault()
+
+          return true
+        }
+
+        return false
+      },
+    },
     autofocus,
     immediatelyRender: false,
   })

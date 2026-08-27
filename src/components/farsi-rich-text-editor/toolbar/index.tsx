@@ -1,3 +1,4 @@
+import { ToolbarAddModifyLink } from '#/components/farsi-rich-text-editor/toolbar/add-modify-link.tsx'
 import {
   ToolbarHighlightColorPicker,
   ToolbarTextColorPicker,
@@ -107,6 +108,8 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
           editor.chain().focus().setHorizontalRule().run()
         }}
       />
+      <Separator orientation="vertical" />
+      <ToolbarAddModifyLink editor={editor} />
     </div>
   )
 }
