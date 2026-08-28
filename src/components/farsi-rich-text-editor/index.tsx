@@ -6,6 +6,7 @@ import { Highlight } from '@tiptap/extension-highlight'
 import { Link } from '@tiptap/extension-link'
 import { Subscript } from '@tiptap/extension-subscript'
 import { Superscript } from '@tiptap/extension-superscript'
+import { TableKit } from '@tiptap/extension-table'
 import { TextAlign } from '@tiptap/extension-text-align'
 import { Color, TextStyle } from '@tiptap/extension-text-style'
 import { useEditor } from '@tiptap/react'
@@ -30,6 +31,11 @@ export const FarsiRichTextEditor = ({
         autolink: true,
       }),
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      TableKit.configure({
+        table: {
+          resizable: false,
+        },
+      }),
     ],
     editorProps: {
       handleClick(_, _2, event) {
