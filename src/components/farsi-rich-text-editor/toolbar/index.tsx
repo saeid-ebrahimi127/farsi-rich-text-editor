@@ -12,6 +12,8 @@ import { useEditorState } from '@tiptap/react'
 import {
   BoldIcon,
   ItalicIcon,
+  ListIcon,
+  ListOrderedIcon,
   MinusIcon,
   QuoteIcon,
   RedoIcon,
@@ -32,6 +34,8 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
         canUndo: editor.can().undo(),
         canRedo: editor.can().redo(),
         isBlockquote: editor.isActive('blockquote'),
+        isBulletList: editor.isActive('bulletList'),
+        isOrderedList: editor.isActive('orderedList'),
       }
     },
   })
@@ -92,6 +96,23 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
       <ToolbarTextColorPicker editor={editor} />
       <ToolbarHighlightColorPicker editor={editor} />
       <ToolbarTextPositionSelect editor={editor} />
+      <Separator orientation="vertical" />
+      <ToolbarCreateButton
+        icon={<ListIcon />}
+        tooltip="لیست نقطه ای"
+        onClick={() => {
+          editor.chain().focus().toggleBulletList().run()
+        }}
+        variant={editorState.isBulletList ? 'default' : 'ghost'}
+      />
+      <ToolbarCreateButton
+        icon={<ListOrderedIcon />}
+        tooltip="لیست نشانه دار"
+        onClick={() => {
+          editor.chain().focus().toggleOrderedList().run()
+        }}
+        variant={editorState.isOrderedList ? 'default' : 'ghost'}
+      />
       <Separator orientation="vertical" />
       <ToolbarCreateButton
         icon={<QuoteIcon />}
