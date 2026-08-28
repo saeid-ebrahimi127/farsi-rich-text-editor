@@ -12,7 +12,6 @@ import {
 import type { Editor } from '@tiptap/react'
 import { useEditorState } from '@tiptap/react'
 import {
-  Heading1Icon,
   Heading2Icon,
   Heading3Icon,
   Heading4Icon,
@@ -23,7 +22,6 @@ import {
 
 const items = [
   { label: 'پاراگراف', icon: <PilcrowIcon />, value: 'paragraph' },
-  { label: 'عنوان 1', icon: <Heading1Icon />, value: 'heading-1' },
   { label: 'عنوان 2', icon: <Heading2Icon />, value: 'heading-2' },
   { label: 'عنوان 3', icon: <Heading3Icon />, value: 'heading-3' },
   { label: 'عنوان 4', icon: <Heading4Icon />, value: 'heading-4' },
@@ -35,7 +33,6 @@ export const ToolbarTextStyleSelect = ({ editor }: { editor: Editor }) => {
   const value = useEditorState({
     editor,
     selector: ({ editor }) => {
-      if (editor.isActive('heading', { level: 1 })) return 'heading-1'
       if (editor.isActive('heading', { level: 2 })) return 'heading-2'
       if (editor.isActive('heading', { level: 3 })) return 'heading-3'
       if (editor.isActive('heading', { level: 4 })) return 'heading-4'
@@ -52,7 +49,7 @@ export const ToolbarTextStyleSelect = ({ editor }: { editor: Editor }) => {
     if (newValue === 'paragraph') {
       chain.setParagraph().run()
     } else {
-      const level = Number(newValue.split('-')[1]) as 1 | 2 | 3 | 4 | 5 | 6
+      const level = Number(newValue.split('-')[1]) as 2 | 3 | 4 | 5 | 6
 
       chain.toggleHeading({ level }).run()
     }

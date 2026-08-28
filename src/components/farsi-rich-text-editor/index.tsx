@@ -19,7 +19,10 @@ export const FarsiRichTextEditor = ({
 }) => {
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({ link: false }),
+      StarterKit.configure({
+        link: false,
+        heading: { levels: [2, 3, 4, 5, 6] },
+      }),
       TextStyle,
       Color,
       Highlight.configure({ multicolor: true }),
