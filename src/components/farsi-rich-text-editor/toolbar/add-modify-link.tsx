@@ -18,7 +18,6 @@ import type { Editor } from '@tiptap/react'
 import { getMarkRange, useEditorState } from '@tiptap/react'
 import { LinkIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
-import { flushSync } from 'react-dom'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 
@@ -56,11 +55,7 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
     rangeRef.current = null
     form.reset()
 
-    flushSync(() => {
-      setOpen(false)
-    })
-
-    editor.chain().focus().run()
+    setOpen(false)
   }
 
   const handleOpenChange = (value: boolean) => {
@@ -120,20 +115,26 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
     }
 
     chain
-      .insertContentAt(range, {
-        type: 'text',
-        text: data.text,
-        marks: [
-          {
-            type: 'link',
-            attrs: {
-              href: data.href,
-              target: '_blank',
-              rel: 'noopener noreferrer',
+      .insertContentAt(range, [
+        {
+          type: 'text',
+          text: data.text,
+          marks: [
+            {
+              type: 'link',
+              attrs: {
+                href: data.href,
+                target: '_blank',
+                rel: 'noopener noreferrer',
+              },
             },
-          },
-        ],
-      })
+          ],
+        },
+        {
+          type: 'text',
+          text: '\u200B',
+        },
+      ])
       .setTextSelection({
         from: range.from,
         to: range.from + data.text.length,
@@ -204,7 +205,11 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
 
             <DialogFooter>
               {isActive && (
-                <Button type="button" variant="outline" onClick={handleRemove}>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  onClick={handleRemove}
+                >
                   حذف لینک
                 </Button>
               )}
