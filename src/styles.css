@@ -159,7 +159,7 @@
 }
 
 .prose a {
-  @apply text-sky-600;
+  color: var(--color-primary);
 }
 
 .prose li p {
