@@ -4,6 +4,7 @@ import {
   ToolbarTextColorPicker,
 } from '#/components/farsi-rich-text-editor/toolbar/color-picker.tsx'
 import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
+import { ToolbarTextAlignmentSelect } from '#/components/farsi-rich-text-editor/toolbar/text-alignment-select.tsx'
 import { ToolbarTextPositionSelect } from '#/components/farsi-rich-text-editor/toolbar/text-position-select.tsx'
 import { ToolbarTextStyleSelect } from '#/components/farsi-rich-text-editor/toolbar/text-style-select.tsx'
 import { Separator } from '#/components/ui/separator.tsx'
@@ -41,7 +42,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
   })
 
   return (
-    <div className="flex flex-wrap items-center gap-1 rounded-xl rounded-b-none border border-b-0 bg-white p-2">
+    <div className="flex flex-wrap items-center gap-x-1 gap-y-2 rounded-xl rounded-b-none border border-b-0 bg-white p-2">
       <ToolbarCreateButton
         icon={<UndoIcon />}
         tooltip="برگرداندن"
@@ -113,6 +114,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
         }}
         variant={editorState.isOrderedList ? 'default' : 'ghost'}
       />
+      <ToolbarTextAlignmentSelect editor={editor} />
       <Separator orientation="vertical" />
       <ToolbarCreateButton
         icon={<QuoteIcon />}
