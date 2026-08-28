@@ -95,9 +95,9 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
         }}
         variant={editorState.isStrikethrough ? 'default' : 'ghost'}
       />
+      <Separator orientation="vertical" />
       <ToolbarTextColorPicker editor={editor} />
       <ToolbarHighlightColorPicker editor={editor} />
-      <ToolbarTextPositionSelect editor={editor} />
       <Separator orientation="vertical" />
       <ToolbarCreateButton
         icon={<ListIcon />}
@@ -115,7 +115,9 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
         }}
         variant={editorState.isOrderedList ? 'default' : 'ghost'}
       />
+      <Separator orientation="vertical" />
       <ToolbarTextAlignmentSelect editor={editor} />
+      <ToolbarTextPositionSelect editor={editor} />
       <Separator orientation="vertical" />
       <ToolbarCreateButton
         icon={<QuoteIcon />}
@@ -134,7 +136,6 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
       />
       <Separator orientation="vertical" />
       <ToolbarAddModifyTable editor={editor} />
-      <Separator orientation="vertical" />
       <ToolbarAddModifyLink editor={editor} />
     </div>
   )
