@@ -6,6 +6,7 @@ import {
   ToolbarTextColorPicker,
 } from '#/components/farsi-rich-text-editor/toolbar/color-picker.tsx'
 import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
+import { ToolbarEmojiPicker } from '#/components/farsi-rich-text-editor/toolbar/emoji-picker.tsx'
 import { ToolbarTextAlignmentSelect } from '#/components/farsi-rich-text-editor/toolbar/text-alignment-select.tsx'
 import { ToolbarTextPositionSelect } from '#/components/farsi-rich-text-editor/toolbar/text-position-select.tsx'
 import { ToolbarTextStyleSelect } from '#/components/farsi-rich-text-editor/toolbar/text-style-select.tsx'
@@ -139,6 +140,8 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
       <ToolbarAddModifyTable editor={editor} />
       <ToolbarAddModifyLink editor={editor} />
       <ToolbarAddAparatVideo editor={editor} />
+      <Separator orientation="vertical" />
+      <ToolbarEmojiPicker editor={editor} />
     </div>
   )
 }

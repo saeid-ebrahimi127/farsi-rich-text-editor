@@ -232,3 +232,7 @@
 .prose .aparat-video iframe {
   @apply absolute inset-0 h-full w-full border-0;
 }
+
+.prose .node-emoji img {
+  @apply my-0 inline-block;
+}
