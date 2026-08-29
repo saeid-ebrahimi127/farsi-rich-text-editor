@@ -1,4 +1,5 @@
 import { FRTE_Content } from '#/components/farsi-rich-text-editor/content.tsx'
+import { AparatVideo } from '#/components/farsi-rich-text-editor/extensions/aparat-video.ts'
 import { FRTE_Footer } from '#/components/farsi-rich-text-editor/footer.tsx'
 import { FRTE_Toolbar } from '#/components/farsi-rich-text-editor/toolbar/index.tsx'
 import { CharacterCount } from '@tiptap/extension-character-count'
@@ -39,6 +40,7 @@ export const FarsiRichTextEditor = ({
           resizable: false,
         },
       }),
+      AparatVideo,
     ],
     editorProps: {
       handleClick(_, _2, event) {

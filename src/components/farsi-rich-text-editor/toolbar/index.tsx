@@ -1,3 +1,4 @@
+import { ToolbarAddAparatVideo } from '#/components/farsi-rich-text-editor/toolbar/add-aparat-video.tsx'
 import { ToolbarAddModifyLink } from '#/components/farsi-rich-text-editor/toolbar/add-modify-link.tsx'
 import { ToolbarAddModifyTable } from '#/components/farsi-rich-text-editor/toolbar/add-modify-table.tsx'
 import {
@@ -137,6 +138,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
       <Separator orientation="vertical" />
       <ToolbarAddModifyTable editor={editor} />
       <ToolbarAddModifyLink editor={editor} />
+      <ToolbarAddAparatVideo editor={editor} />
     </div>
   )
 }

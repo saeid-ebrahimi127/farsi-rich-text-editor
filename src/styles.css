@@ -223,3 +223,12 @@
 .prose .resize-cursor {
   @apply cursor-col-resize;
 }
+
+.prose .aparat-video {
+  @apply relative w-full overflow-hidden;
+  padding-top: calc(57% + 65px);
+}
+
+.prose .aparat-video iframe {
+  @apply absolute inset-0 h-full w-full border-0;
+}
