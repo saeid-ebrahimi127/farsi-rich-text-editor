@@ -13,7 +13,7 @@ import { useState } from 'react'
 import { flushSync } from 'react-dom'
 
 const items = [
-  { label: 'کد ساده', value: null },
+  { label: 'کد ساده', value: 'plaintext' },
   { label: 'HTML', value: 'html' },
   { label: 'CSS', value: 'css' },
   { label: 'JavaScript', value: 'javascript' },
@@ -78,7 +78,7 @@ export const ToolbarAddModifyCodeBlock = ({ editor }: { editor: Editor }) => {
         <DropdownMenuGroup>
           {items.map((item) => (
             <DropdownMenuItem
-              key={item.value ?? 'plain'}
+              key={item.value}
               onSelect={(e) => {
                 e.preventDefault()
 
