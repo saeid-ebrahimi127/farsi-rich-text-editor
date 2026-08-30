@@ -8,6 +8,7 @@ import {
 import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { ToolbarEmojiPicker } from '#/components/farsi-rich-text-editor/toolbar/emoji-picker.tsx'
 import { ToolbarTextAlignmentSelect } from '#/components/farsi-rich-text-editor/toolbar/text-alignment-select.tsx'
+import { ToolbarTextDirectionSelect } from '#/components/farsi-rich-text-editor/toolbar/text-direction-select.tsx'
 import { ToolbarTextPositionSelect } from '#/components/farsi-rich-text-editor/toolbar/text-position-select.tsx'
 import { ToolbarTextStyleSelect } from '#/components/farsi-rich-text-editor/toolbar/text-style-select.tsx'
 import { Separator } from '#/components/ui/separator.tsx'
@@ -63,6 +64,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
         disabled={!editorState.canRedo}
       />
       <Separator orientation="vertical" />
+      <ToolbarTextDirectionSelect editor={editor} />
       <ToolbarTextStyleSelect editor={editor} />
       <Separator orientation="vertical" />
       <ToolbarCreateButton

@@ -62,6 +62,7 @@ export const FarsiRichTextEditor = ({
     },
     autofocus,
     immediatelyRender: false,
+    textDirection: 'rtl',
   })
 
   if (!editor) return null
