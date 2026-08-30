@@ -3,8 +3,8 @@ import { AparatVideo } from '#/components/farsi-rich-text-editor/extensions/apar
 import { CustomCodeBlock } from '#/components/farsi-rich-text-editor/extensions/custom-code-block.ts'
 import { FRTE_Footer } from '#/components/farsi-rich-text-editor/footer.tsx'
 import { appleEmojis } from '#/components/farsi-rich-text-editor/helpers/emoji.ts'
-import { EditorLoading } from '#/components/farsi-rich-text-editor/loading.tsx'
 import { FRTE_Toolbar } from '#/components/farsi-rich-text-editor/toolbar/index.tsx'
+import { SimpleLoading } from '#/components/simple-loading.tsx'
 import { CharacterCount } from '@tiptap/extension-character-count'
 import { Emoji } from '@tiptap/extension-emoji'
 import { Highlight } from '@tiptap/extension-highlight'
@@ -72,7 +72,12 @@ export const FarsiRichTextEditor = ({
     textDirection: 'rtl',
   })
 
-  if (!editor) return <EditorLoading />
+  if (!editor)
+    return (
+      <div className="flex h-96 w-full items-center justify-center p-4">
+        <SimpleLoading />
+      </div>
+    )
 
   return (
     <>
