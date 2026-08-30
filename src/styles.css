@@ -234,5 +234,5 @@
 }
 
 .prose [data-type='emoji'] img {
-  @apply my-0 inline-block size-5.5;
+  @apply my-0 inline-block size-5.5 align-text-bottom;
 }
