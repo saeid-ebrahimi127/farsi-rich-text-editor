@@ -16,6 +16,10 @@
   <img src="https://img.shields.io/badge/Language-TypeScript-3178C6" alt="TypeScript">
 </p>
 
+<p align="right">
+  <a href="https://farsi-rich-text-editor.vercel.app/">نمایش زنده</a>
+</p>
+
 ---
 
 ## ✨ امکانات
