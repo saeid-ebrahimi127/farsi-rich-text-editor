@@ -233,6 +233,6 @@
   @apply absolute inset-0 h-full w-full border-0;
 }
 
-.prose .node-emoji img {
-  @apply my-0 inline-block;
+.prose [data-type='emoji'] img {
+  @apply my-0 inline-block size-5.5;
 }

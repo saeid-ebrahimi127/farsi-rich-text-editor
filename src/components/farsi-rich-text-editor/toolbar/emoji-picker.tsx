@@ -1,6 +1,6 @@
 import {
   emojis,
-  getUnified,
+  getAppleEmojiUrl,
 } from '#/components/farsi-rich-text-editor/helpers/emoji.ts'
 import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { Button } from '#/components/ui/button.tsx'
@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu.tsx'
 import type { Editor } from '@tiptap/react'
-import { Emoji, EmojiStyle } from 'emoji-picker-react'
 import { FaceSlightlySmilingIcon } from 'lucide-react'
 import { useState } from 'react'
 
@@ -41,21 +40,14 @@ export const ToolbarEmojiPicker = ({ editor }: { editor: Editor }) => {
               variant="ghost"
               size="icon-sm"
               onClick={() => {
-                editor
-                  .chain()
-                  .insertContent({
-                    type: 'emoji',
-                    attrs: {
-                      emoji,
-                    },
-                  })
-                  .run()
+                editor.chain().insertContent(emoji).run()
               }}
             >
-              <Emoji
-                unified={getUnified(emoji)}
-                emojiStyle={EmojiStyle.APPLE}
-                size={22}
+              <img
+                src={getAppleEmojiUrl(emoji)}
+                alt={emoji}
+                width={22}
+                height={22}
               />
             </Button>
           ))}
