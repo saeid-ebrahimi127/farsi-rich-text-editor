@@ -1,4 +1,5 @@
 import { ToolbarAddAparatVideo } from '#/components/farsi-rich-text-editor/toolbar/add-aparat-video.tsx'
+import { ToolbarAddModifyCodeBlock } from '#/components/farsi-rich-text-editor/toolbar/add-modify-code-block.tsx'
 import { ToolbarAddModifyLink } from '#/components/farsi-rich-text-editor/toolbar/add-modify-link.tsx'
 import { ToolbarAddModifyTable } from '#/components/farsi-rich-text-editor/toolbar/add-modify-table.tsx'
 import {
@@ -123,6 +124,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
       <ToolbarTextAlignmentSelect editor={editor} />
       <ToolbarTextPositionSelect editor={editor} />
       <Separator orientation="vertical" />
+      <ToolbarAddModifyCodeBlock editor={editor} />
       <ToolbarCreateButton
         icon={<QuoteIcon />}
         tooltip="نقل قول"

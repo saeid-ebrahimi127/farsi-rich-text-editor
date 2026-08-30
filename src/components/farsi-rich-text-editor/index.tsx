@@ -1,5 +1,6 @@
 import { FRTE_Content } from '#/components/farsi-rich-text-editor/content.tsx'
 import { AparatVideo } from '#/components/farsi-rich-text-editor/extensions/aparat-video.ts'
+import { CustomCodeBlock } from '#/components/farsi-rich-text-editor/extensions/custom-code-block.ts'
 import { FRTE_Footer } from '#/components/farsi-rich-text-editor/footer.tsx'
 import { appleEmojis } from '#/components/farsi-rich-text-editor/helpers/emoji.ts'
 import { FRTE_Toolbar } from '#/components/farsi-rich-text-editor/toolbar/index.tsx'
@@ -14,6 +15,18 @@ import { TextAlign } from '@tiptap/extension-text-align'
 import { Color, TextStyle } from '@tiptap/extension-text-style'
 import { useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
+import css from 'highlight.js/lib/languages/css'
+import js from 'highlight.js/lib/languages/javascript'
+import ts from 'highlight.js/lib/languages/typescript'
+import html from 'highlight.js/lib/languages/xml'
+import { all, createLowlight } from 'lowlight'
+
+const lowlight = createLowlight(all)
+
+lowlight.register('html', html)
+lowlight.register('css', css)
+lowlight.register('js', js)
+lowlight.register('ts', ts)
 
 export const FarsiRichTextEditor = ({
   autofocus = false,
@@ -25,6 +38,7 @@ export const FarsiRichTextEditor = ({
       StarterKit.configure({
         link: false,
         heading: { levels: [2, 3, 4, 5, 6] },
+        codeBlock: false,
       }),
       TextStyle,
       Color,
@@ -45,6 +59,9 @@ export const FarsiRichTextEditor = ({
       AparatVideo,
       Emoji.configure({
         emojis: appleEmojis,
+      }),
+      CustomCodeBlock.configure({
+        lowlight,
       }),
     ],
     editorProps: {

@@ -39,6 +39,11 @@ export const ToolbarTextDirectionSelect = ({ editor }: { editor: Editor }) => {
     },
   })
 
+  const isCodeBlock = useEditorState({
+    editor,
+    selector: ({ editor }) => editor.isActive('codeBlock'),
+  })
+
   const handleValueChange = (newValue: string) => {
     editor
       .chain()
@@ -52,6 +57,7 @@ export const ToolbarTextDirectionSelect = ({ editor }: { editor: Editor }) => {
   return (
     <ToolbarCreateSelect
       value={value}
+      disabled={isCodeBlock}
       onValueChange={handleValueChange}
       trigger={
         <Tooltip>

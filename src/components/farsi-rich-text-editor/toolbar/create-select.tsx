@@ -6,14 +6,16 @@ export const ToolbarCreateSelect = ({
   onValueChange,
   trigger,
   children,
+  disabled = false,
 }: {
   value: string
   onValueChange: (value: string) => void
   trigger: ReactNode
   children: ReactNode
+  disabled?: boolean
 }) => {
   return (
-    <Select value={value} onValueChange={onValueChange}>
+    <Select disabled={disabled} value={value} onValueChange={onValueChange}>
       {trigger}
       <SelectContent
         onCloseAutoFocus={(e) => {
