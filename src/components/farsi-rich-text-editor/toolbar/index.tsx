@@ -36,7 +36,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
         isBold: editor.isActive('bold'),
         isItalic: editor.isActive('italic'),
         isUnderline: editor.isActive('underline'),
-        isStrikethrough: editor.isActive('strikethrough'),
+        isStrikethrough: editor.isActive('strike'),
         canUndo: editor.can().undo(),
         canRedo: editor.can().redo(),
         isBlockquote: editor.isActive('blockquote'),
