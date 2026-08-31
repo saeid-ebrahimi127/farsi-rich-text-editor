@@ -1,9 +1,5 @@
-import {
-  emojis,
-  getAppleEmojiUrl,
-} from '#/components/farsi-rich-text-editor/helpers/emoji.ts'
+import { emojis } from '#/components/farsi-rich-text-editor/helpers/emoji.ts'
 import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
-import { Button } from '#/components/ui/button.tsx'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,29 +22,22 @@ export const ToolbarEmojiPicker = ({ editor }: { editor: Editor }) => {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="h-64 w-64 scrollbar-thin scrollbar-gutter-auto overflow-y-auto"
+        className="h-64 w-64 scrollbar-thin overflow-auto"
         onCloseAutoFocus={(e) => {
           e.preventDefault()
         }}
       >
-        <DropdownMenuGroup className="grid grid-cols-8 gap-1 p-2">
+        <DropdownMenuGroup className="grid grid-cols-6 gap-1 p-2">
           {emojis.map((emoji, index) => (
-            <Button
+            <button
               key={index}
               type="button"
-              variant="ghost"
-              size="icon-sm"
               onClick={() => {
                 editor.chain().insertContent(emoji).run()
               }}
             >
-              <img
-                src={getAppleEmojiUrl(emoji)}
-                alt={emoji}
-                width={22}
-                height={22}
-              />
-            </Button>
+              {emoji}
+            </button>
           ))}
         </DropdownMenuGroup>
       </DropdownMenuContent>

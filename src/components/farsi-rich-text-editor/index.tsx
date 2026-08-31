@@ -2,11 +2,9 @@ import { FRTE_Content } from '#/components/farsi-rich-text-editor/content.tsx'
 import { AparatVideo } from '#/components/farsi-rich-text-editor/extensions/aparat-video.ts'
 import { CustomCodeBlock } from '#/components/farsi-rich-text-editor/extensions/custom-code-block.ts'
 import { FRTE_Footer } from '#/components/farsi-rich-text-editor/footer.tsx'
-import { appleEmojis } from '#/components/farsi-rich-text-editor/helpers/emoji.ts'
 import { FRTE_Toolbar } from '#/components/farsi-rich-text-editor/toolbar/index.tsx'
 import { SimpleLoading } from '#/components/simple-loading.tsx'
 import { CharacterCount } from '@tiptap/extension-character-count'
-import { Emoji } from '@tiptap/extension-emoji'
 import { Highlight } from '@tiptap/extension-highlight'
 import { Link } from '@tiptap/extension-link'
 import { Subscript } from '@tiptap/extension-subscript'
@@ -47,9 +45,6 @@ export const FarsiRichTextEditor = ({
         },
       }),
       AparatVideo,
-      Emoji.configure({
-        emojis: appleEmojis,
-      }),
       CustomCodeBlock.configure({
         lowlight,
       }),
