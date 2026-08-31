@@ -70,7 +70,7 @@ export const FarsiRichTextEditor = ({
   if (!editor)
     return (
       <div className="flex h-96 w-full items-center justify-center p-4">
-        <SimpleLoading />
+        <SimpleLoading message="در حال بارگذاری ویرایشگر..." />
       </div>
     )
 
