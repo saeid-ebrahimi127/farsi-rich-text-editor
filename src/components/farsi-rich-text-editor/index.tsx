@@ -4,6 +4,7 @@ import { CustomCodeBlock } from '#/components/farsi-rich-text-editor/extensions/
 import { FRTE_Footer } from '#/components/farsi-rich-text-editor/footer.tsx'
 import { FRTE_Toolbar } from '#/components/farsi-rich-text-editor/toolbar/index.tsx'
 import { SimpleLoading } from '#/components/simple-loading.tsx'
+import { Button } from '#/components/ui/button.tsx'
 import { CharacterCount } from '@tiptap/extension-character-count'
 import { Highlight } from '@tiptap/extension-highlight'
 import { Link } from '@tiptap/extension-link'
@@ -14,6 +15,8 @@ import { TextAlign } from '@tiptap/extension-text-align'
 import { Color, TextStyle } from '@tiptap/extension-text-style'
 import { useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
+import { EyeIcon, PencilIcon } from 'lucide-react'
+import { useState } from 'react'
 import { lowlight } from './lowlight'
 
 export const FarsiRichTextEditor = ({
@@ -21,6 +24,8 @@ export const FarsiRichTextEditor = ({
 }: {
   autofocus?: boolean
 }) => {
+  const [showPreview, setShowPreview] = useState(false)
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -76,9 +81,22 @@ export const FarsiRichTextEditor = ({
 
   return (
     <>
-      <FRTE_Toolbar editor={editor} />
-      <FRTE_Content editor={editor} />
-      <FRTE_Footer editor={editor} />
+      <Button
+        type="button"
+        variant={'outline'}
+        onClick={() => {
+          setShowPreview((prev) => !prev)
+        }}
+        className="mb-2"
+      >
+        {!showPreview ? <EyeIcon /> : <PencilIcon />}
+        {!showPreview ? 'پیش نمایش' : 'ویرایش'}
+      </Button>
+      <>
+        {!showPreview && <FRTE_Toolbar editor={editor} />}
+        <FRTE_Content editor={editor} showPreview={showPreview} />
+        {!showPreview && <FRTE_Footer editor={editor} />}
+      </>
     </>
   )
 }
