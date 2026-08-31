@@ -1,21 +1,21 @@
-import { ToolbarCreateSelect } from '#/components/farsi-rich-text-editor/toolbar/create-select.tsx'
-
+import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
 import {
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '#/components/ui/select.tsx'
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '#/components/ui/tooltip.tsx'
-
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '#/components/ui/dropdown-menu.tsx'
 import type { Editor } from '@tiptap/react'
 import { useEditorState } from '@tiptap/react'
-
-import { PilcrowLeftIcon, PilcrowRightIcon } from 'lucide-react'
+import {
+  CheckIcon,
+  ChevronLeftIcon,
+  PilcrowLeftIcon,
+  PilcrowRightIcon,
+} from 'lucide-react'
+import { useState } from 'react'
+import { flushSync } from 'react-dom'
 
 const items = [
   {
@@ -31,6 +31,8 @@ const items = [
 ]
 
 export const ToolbarTextDirectionSelect = ({ editor }: { editor: Editor }) => {
+  const [open, setOpen] = useState(false)
+
   const value = useEditorState({
     editor,
     selector: ({ editor }) => {
@@ -47,39 +49,52 @@ export const ToolbarTextDirectionSelect = ({ editor }: { editor: Editor }) => {
   const handleValueChange = (newValue: string) => {
     editor
       .chain()
-      .focus()
       .setTextDirection(newValue as 'rtl' | 'ltr')
       .run()
+
+    flushSync(() => {
+      setOpen(false)
+    })
+
+    editor.chain().focus().run()
   }
 
   const current = items.find((item) => item.value === value) ?? items[0]!
 
   return (
-    <ToolbarCreateSelect
-      value={value}
-      disabled={isCodeBlock}
-      onValueChange={handleValueChange}
-      trigger={
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <SelectTrigger className="mx-1 w-45">
-              <SelectValue>
-                {current.icon}
-                {current.label}
-              </SelectValue>
-            </SelectTrigger>
-          </TooltipTrigger>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger asChild>
+        <ToolbarCreateButton
+          icon={current.icon}
+          tooltip="جهت متن"
+          disabled={isCodeBlock}
+          variant="ghost"
+        />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        onCloseAutoFocus={(e) => {
+          e.preventDefault()
+        }}
+        className="max-h-48 w-48 scrollbar-thin overflow-auto"
+      >
+        <DropdownMenuGroup>
+          {items.map((item) => (
+            <DropdownMenuItem
+              key={item.value}
+              onSelect={(e) => {
+                e.preventDefault()
 
-          <TooltipContent>جهت متن</TooltipContent>
-        </Tooltip>
-      }
-    >
-      {items.map((item) => (
-        <SelectItem key={item.value} value={item.value}>
-          {item.icon}
-          {item.label}
-        </SelectItem>
-      ))}
-    </ToolbarCreateSelect>
+                handleValueChange(item.value)
+              }}
+            >
+              <ChevronLeftIcon />
+              {item.icon}
+              {item.label}
+              {value === item.value && <CheckIcon className="mr-auto" />}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
