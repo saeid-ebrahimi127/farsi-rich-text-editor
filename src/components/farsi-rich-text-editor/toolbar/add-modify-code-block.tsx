@@ -45,14 +45,12 @@ export const ToolbarAddModifyCodeBlock = ({ editor }: { editor: Editor }) => {
   })
 
   const handleCodeBlock = (language: string | null) => {
+    const chain = editor.chain()
+
     if (!isCodeBlock) {
-      editor
-        .chain()
-        .setCodeBlock(language ? { language } : undefined)
-        .run()
+      chain.setCodeBlock(language ? { language } : undefined).run()
     } else {
-      editor
-        .chain()
+      chain
         .updateAttributes('codeBlock', {
           language: language ?? null,
         })
@@ -79,7 +77,7 @@ export const ToolbarAddModifyCodeBlock = ({ editor }: { editor: Editor }) => {
         onCloseAutoFocus={(e) => {
           e.preventDefault()
         }}
-        className="max-h-48 w-48 scrollbar-thin scrollbar-gutter-auto overflow-y-auto"
+        className="max-h-48 w-48 scrollbar-thin overflow-auto"
       >
         <DropdownMenuGroup>
           {items.map((item) => (
