@@ -238,3 +238,12 @@
 .prose [data-type='emoji'] img {
   @apply my-0 inline-block size-5.5 align-text-bottom;
 }
+
+.prose blockquote {
+  @apply font-normal text-black not-italic;
+}
+
+.prose blockquote > *::before,
+.prose blockquote > *::after {
+  @apply content-none;
+}
