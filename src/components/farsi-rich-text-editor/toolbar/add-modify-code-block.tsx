@@ -18,6 +18,12 @@ const items = [
   { label: 'CSS', value: 'css' },
   { label: 'JavaScript', value: 'javascript' },
   { label: 'TypeScript', value: 'typescript' },
+  { label: 'PHP', value: 'php' },
+  { label: 'Python', value: 'python' },
+  { label: 'JSON', value: 'json' },
+  { label: 'Bash', value: 'bash' },
+  { label: 'SQL', value: 'sql' },
+  { label: 'Markdown', value: 'markdown' },
 ]
 
 export const ToolbarAddModifyCodeBlock = ({ editor }: { editor: Editor }) => {
