@@ -22,7 +22,7 @@ export const ToolbarEmojiPicker = ({ editor }: { editor: Editor }) => {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="h-64 w-64 scrollbar-thin overflow-auto"
+        className="max-h-64 w-64 scrollbar-thin overflow-auto"
         onCloseAutoFocus={(e) => {
           e.preventDefault()
         }}
