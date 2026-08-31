@@ -12,7 +12,12 @@ import { Subscript } from '@tiptap/extension-subscript'
 import { Superscript } from '@tiptap/extension-superscript'
 import { TableKit } from '@tiptap/extension-table'
 import { TextAlign } from '@tiptap/extension-text-align'
-import { Color, TextStyle } from '@tiptap/extension-text-style'
+import {
+  Color,
+  FontSize,
+  LineHeight,
+  TextStyle,
+} from '@tiptap/extension-text-style'
 import { useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
 import { EyeIcon, PencilIcon } from 'lucide-react'
@@ -33,23 +38,34 @@ export const FarsiRichTextEditor = ({
         heading: { levels: [2, 3, 4, 5, 6] },
         codeBlock: false,
       }),
+
       TextStyle,
       Color,
+      FontSize,
+      LineHeight,
+
       Highlight.configure({ multicolor: true }),
       CharacterCount,
       Superscript,
       Subscript,
+
       Link.configure({
         openOnClick: false,
         autolink: true,
       }),
-      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+
       TableKit.configure({
         table: {
           resizable: false,
         },
       }),
+
       AparatVideo,
+
       CustomCodeBlock.configure({
         lowlight,
       }),

@@ -8,6 +8,7 @@ import {
 } from '#/components/farsi-rich-text-editor/toolbar/color-picker.tsx'
 import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { ToolbarEmojiPicker } from '#/components/farsi-rich-text-editor/toolbar/emoji-picker.tsx'
+import { ToolbarFontSizeSelect } from '#/components/farsi-rich-text-editor/toolbar/font-size-select.tsx'
 import { ToolbarTextAlignmentSelect } from '#/components/farsi-rich-text-editor/toolbar/text-alignment-select.tsx'
 import { ToolbarTextDirectionSelect } from '#/components/farsi-rich-text-editor/toolbar/text-direction-select.tsx'
 import { ToolbarTextPositionSelect } from '#/components/farsi-rich-text-editor/toolbar/text-position-select.tsx'
@@ -68,6 +69,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
       <ToolbarTextDirectionSelect editor={editor} />
       <ToolbarTextStyleSelect editor={editor} />
       <Separator orientation="vertical" />
+      <ToolbarFontSizeSelect editor={editor} />
       <ToolbarCreateButton
         icon={<BoldIcon />}
         tooltip="درشت"
@@ -100,7 +102,6 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
         }}
         variant={editorState.isStrikethrough ? 'default' : 'ghost'}
       />
-      <Separator orientation="vertical" />
       <ToolbarTextColorPicker editor={editor} />
       <ToolbarHighlightColorPicker editor={editor} />
       <Separator orientation="vertical" />
@@ -144,7 +145,6 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
       <ToolbarAddModifyTable editor={editor} />
       <ToolbarAddModifyLink editor={editor} />
       <ToolbarAddAparatVideo editor={editor} />
-      <Separator orientation="vertical" />
       <ToolbarEmojiPicker editor={editor} />
     </div>
   )
