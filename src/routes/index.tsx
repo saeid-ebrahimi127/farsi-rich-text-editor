@@ -5,7 +5,7 @@ export const Route = createFileRoute('/')({ component: Home })
 
 function Home() {
   return (
-    <div className="mx-auto p-8">
+    <div className="mx-auto max-w-360">
       <FarsiRichTextEditor autofocus />
     </div>
   )

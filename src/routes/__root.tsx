@@ -52,7 +52,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body className="w-full overflow-x-hidden bg-orange-100 font-sans antialiased">
         <DirectionProvider dir="rtl">
           <TooltipProvider>
-            <main>{children}</main>
+            <main className="p-8">{children}</main>
           </TooltipProvider>
           <Toaster
             closeButton
