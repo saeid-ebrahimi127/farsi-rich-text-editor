@@ -27,5 +27,7 @@ export const getLinkRange = (editor: Editor) => {
 export function getReadingTime(wordCount: number) {
   const wordsPerMinute = 200
 
+  if (wordCount === 0) return 0
+
   return Math.max(1, Math.ceil(wordCount / wordsPerMinute))
 }

@@ -6,11 +6,11 @@ export const FRTE_Footer = ({ editor }: { editor: Editor }) => {
   const { wordsCount, charactersCount, readTime } = useEditorState({
     editor,
     selector: ({ editor }) => {
-      const words = editor.storage.characterCount.words()
+      const wordsCount = editor.storage.characterCount.words()
       return {
-        wordsCount: words,
+        wordsCount,
         charactersCount: editor.storage.characterCount.characters(),
-        readTime: getReadingTime(words),
+        readTime: getReadingTime(wordsCount),
       }
     },
   })
