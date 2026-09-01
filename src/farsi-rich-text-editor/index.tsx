@@ -1,9 +1,11 @@
 import { SimpleLoading } from '#/components/simple-loading.tsx'
 import { Button } from '#/components/ui/button.tsx'
+import { TableBubbleMenu } from '#/farsi-rich-text-editor/components/table-bubble-menu.tsx'
 import { FRTE_Content } from '#/farsi-rich-text-editor/content.tsx'
 import { AparatVideo } from '#/farsi-rich-text-editor/extensions/aparat-video.ts'
 import { RtlColumnResizing } from '#/farsi-rich-text-editor/extensions/column-resizing.ts'
 import { CustomCodeBlock } from '#/farsi-rich-text-editor/extensions/custom-code-block.ts'
+import { RtlTableArrowNavigation } from '#/farsi-rich-text-editor/extensions/rtl-table-arrow-navigation.ts'
 import { FRTE_Footer } from '#/farsi-rich-text-editor/footer.tsx'
 import { FRTE_Toolbar } from '#/farsi-rich-text-editor/toolbar/index.tsx'
 import { CharacterCount } from '@tiptap/extension-character-count'
@@ -67,6 +69,7 @@ export const FarsiRichTextEditor = ({
       }),
 
       RtlColumnResizing,
+      RtlTableArrowNavigation,
 
       AparatVideo,
 
@@ -114,6 +117,7 @@ export const FarsiRichTextEditor = ({
       </Button>
       <>
         {!showPreview && <FRTE_Toolbar editor={editor} />}
+        {!showPreview && <TableBubbleMenu editor={editor} />}
         <FRTE_Content editor={editor} showPreview={showPreview} />
         {!showPreview && <FRTE_Footer editor={editor} />}
       </>
