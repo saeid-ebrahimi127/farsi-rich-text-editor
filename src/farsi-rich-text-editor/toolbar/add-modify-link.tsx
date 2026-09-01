@@ -11,7 +11,7 @@ import {
 } from '#/components/ui/dialog.tsx'
 import { FieldGroup } from '#/components/ui/field.tsx'
 import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
-import { getLinkRange } from '#/farsi-rich-text-editor/utils/index.ts'
+import { getRange } from '#/farsi-rich-text-editor/utils/index.ts'
 import { urlHrefZodSchema, urlTextZodSchema } from '#/zod-schema/url.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { Editor } from '@tiptap/react'
@@ -20,6 +20,23 @@ import { LinkIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
+
+const getLinkRange = (editor: Editor) => {
+  const range = getRange(editor)
+  const link = editor.state.schema.marks.link
+
+  if (!link) {
+    return range
+  }
+
+  const { selection } = editor.state
+
+  if (selection.empty && editor.isActive('link')) {
+    return getMarkRange(selection.$from, link) ?? range
+  }
+
+  return range
+}
 
 const title = 'افزودن / ویرایش لینک'
 

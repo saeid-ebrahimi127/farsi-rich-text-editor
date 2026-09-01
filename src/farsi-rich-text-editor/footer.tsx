@@ -1,6 +1,13 @@
-import { getReadingTime } from '#/farsi-rich-text-editor/utils/index.ts'
 import type { Editor } from '@tiptap/react'
 import { useEditorState } from '@tiptap/react'
+
+function getReadingTime(wordCount: number) {
+  const wordsPerMinute = 200
+
+  if (wordCount === 0) return 0
+
+  return Math.max(1, Math.ceil(wordCount / wordsPerMinute))
+}
 
 export const FRTE_Footer = ({ editor }: { editor: Editor }) => {
   const { wordsCount, charactersCount, readTime } = useEditorState({
