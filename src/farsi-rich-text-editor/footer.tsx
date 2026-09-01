@@ -1,4 +1,4 @@
-import { getReadingTime } from '#/components/farsi-rich-text-editor/utils/index.ts'
+import { getReadingTime } from '#/farsi-rich-text-editor/utils/index.ts'
 import type { Editor } from '@tiptap/react'
 import { useEditorState } from '@tiptap/react'
 

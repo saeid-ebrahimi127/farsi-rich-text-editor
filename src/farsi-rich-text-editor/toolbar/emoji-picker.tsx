@@ -1,14 +1,123 @@
-import { emojis } from '#/components/farsi-rich-text-editor/helpers/emoji.ts'
-import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu.tsx'
+import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
 import type { Editor } from '@tiptap/react'
 import { FaceSlightlySmilingIcon } from 'lucide-react'
 import { useState } from 'react'
+
+export const emojis = [
+  // Faces
+  '😀',
+  '😂',
+  '🤣',
+  '😊',
+  '😍',
+  '🥰',
+  '😘',
+  '😎',
+  '🤩',
+  '🥳',
+  '🤔',
+  '🙄',
+  '😢',
+  '😭',
+  '😡',
+  '🤯',
+  '😱',
+  '😴',
+
+  // Gestures & reactions
+  '👍',
+  '👎',
+  '👌',
+  '✌️',
+  '🤞',
+  '🤟',
+  '🤘',
+  '👏',
+  '🙌',
+  '🙏',
+  '💪',
+  '👀',
+  '👋',
+  '❤️',
+  '🧡',
+  '💛',
+  '💚',
+  '💙',
+  '💜',
+  '🖤',
+  '🤍',
+  '💔',
+  '💕',
+  '💯',
+
+  // Celebration
+  '🎉',
+  '🎊',
+  '🥳',
+  '🎂',
+  '🎁',
+  '🏆',
+  '🥇',
+  '✨',
+  '🎈',
+  '🔥',
+  '⭐',
+  '🌟',
+  '💫',
+
+  // Common objects
+  '🚀',
+  '💻',
+  '📱',
+  '💡',
+  '🔔',
+  '📌',
+  '📎',
+  '✏️',
+  '📝',
+  '📷',
+  '🎵',
+  '🎶',
+
+  // Food & drink
+  '🍕',
+  '🍔',
+  '🍟',
+  '🌭',
+  '🍎',
+  '🍓',
+  '🍉',
+  '🍌',
+  '☕',
+  '🍺',
+  '🍻',
+  '🍷',
+
+  // Nature & animals
+  '🐶',
+  '🐱',
+  '🐭',
+  '🐰',
+  '🦊',
+  '🐻',
+  '🐼',
+  '🐨',
+  '🐯',
+  '🦁',
+  '🐸',
+  '🐵',
+  '🌸',
+  '🌹',
+  '🌈',
+  '☀️',
+  '🌙',
+]
 
 export const ToolbarEmojiPicker = ({ editor }: { editor: Editor }) => {
   const [open, setOpen] = useState(false)

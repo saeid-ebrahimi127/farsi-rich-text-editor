@@ -1,4 +1,3 @@
-import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,6 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu.tsx'
+import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
 import type { Editor } from '@tiptap/react'
 import { useEditorState } from '@tiptap/react'
 import {

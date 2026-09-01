@@ -1,4 +1,3 @@
-import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,51 +5,43 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu.tsx'
+import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
 import type { Editor } from '@tiptap/react'
 import { useEditorState } from '@tiptap/react'
 import {
+  AlignCenterIcon,
+  AlignJustifyIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
   CheckIcon,
   ChevronLeftIcon,
-  PilcrowLeftIcon,
-  PilcrowRightIcon,
 } from 'lucide-react'
 import { useState } from 'react'
 import { flushSync } from 'react-dom'
 
 const items = [
-  {
-    label: 'راست به چپ',
-    icon: <PilcrowLeftIcon />,
-    value: 'rtl',
-  },
-  {
-    label: 'چپ به راست',
-    icon: <PilcrowRightIcon />,
-    value: 'ltr',
-  },
+  { label: 'راست چین', icon: <AlignRightIcon />, value: 'right' },
+  { label: 'چپ چین', icon: <AlignLeftIcon />, value: 'left' },
+  { label: 'وسط چین', icon: <AlignCenterIcon />, value: 'center' },
+  { label: 'بلوکی', icon: <AlignJustifyIcon />, value: 'justify' },
 ]
 
-export const ToolbarTextDirectionSelect = ({ editor }: { editor: Editor }) => {
+export const ToolbarTextAlignmentSelect = ({ editor }: { editor: Editor }) => {
   const [open, setOpen] = useState(false)
 
   const value = useEditorState({
     editor,
-    selector: ({ editor }) => {
-      if (editor.isActive({ dir: 'rtl' })) return 'rtl'
-      return 'ltr'
+    selector({ editor }) {
+      if (editor.isActive('heading')) {
+        return editor.getAttributes('heading').textAlign ?? 'right'
+      }
+
+      return editor.getAttributes('paragraph').textAlign ?? 'right'
     },
   })
 
-  const isCodeBlock = useEditorState({
-    editor,
-    selector: ({ editor }) => editor.isActive('codeBlock'),
-  })
-
   const handleValueChange = (newValue: string) => {
-    editor
-      .chain()
-      .setTextDirection(newValue as 'rtl' | 'ltr')
-      .run()
+    editor.chain().setTextAlign(newValue).run()
 
     flushSync(() => {
       setOpen(false)
@@ -66,9 +57,8 @@ export const ToolbarTextDirectionSelect = ({ editor }: { editor: Editor }) => {
       <DropdownMenuTrigger asChild>
         <ToolbarCreateButton
           icon={current.icon}
-          tooltip="جهت متن"
-          disabled={isCodeBlock}
-          variant="ghost"
+          tooltip="تراز متن"
+          variant={value !== 'right' ? 'default' : 'ghost'}
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent

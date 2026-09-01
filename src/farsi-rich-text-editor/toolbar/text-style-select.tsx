@@ -1,4 +1,3 @@
-import { ToolbarCreateSelect } from '#/components/farsi-rich-text-editor/toolbar/create-select.tsx'
 import {
   SelectItem,
   SelectTrigger,
@@ -9,6 +8,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '#/components/ui/tooltip.tsx'
+import { ToolbarCreateSelect } from '#/farsi-rich-text-editor/toolbar/create-select.tsx'
 import type { Editor } from '@tiptap/react'
 import { useEditorState } from '@tiptap/react'
 import {

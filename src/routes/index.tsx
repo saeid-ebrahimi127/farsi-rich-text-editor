@@ -1,4 +1,4 @@
-import { FarsiRichTextEditor } from '#/components/farsi-rich-text-editor/index.tsx'
+import { FarsiRichTextEditor } from '#/farsi-rich-text-editor/index.tsx'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({ component: Home })

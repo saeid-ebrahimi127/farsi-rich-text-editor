@@ -1,4 +1,3 @@
-import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { Button } from '#/components/ui/button.tsx'
 import {
   DropdownMenu,
@@ -7,11 +6,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu.tsx'
+import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { cn } from '#/lib/utils.ts'
 import type { Editor } from '@tiptap/react'
 import { useEditorState } from '@tiptap/react'
-import { HighlighterIcon, SquareIcon, TypeIcon } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { HighlighterIcon, SquareIcon, TypeIcon } from 'lucide-react'
 import { DropdownMenuGroup } from 'radix-ui/dropdown-menu'
 import { useState } from 'react'
 

@@ -1,8 +1,3 @@
-import {
-  getTableSize,
-  selectLastTableCell,
-} from '#/components/farsi-rich-text-editor/helpers/index.ts'
-import { ToolbarCreateButton } from '#/components/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { TextInput } from '#/components/text-input.tsx'
 import { Button } from '#/components/ui/button.tsx'
 import {
@@ -15,6 +10,11 @@ import {
   DialogTrigger,
 } from '#/components/ui/dialog.tsx'
 import { FieldGroup } from '#/components/ui/field.tsx'
+import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
+import {
+  getTableSize,
+  selectLastTableCell,
+} from '#/farsi-rich-text-editor/utils/index.ts'
 import {
   tableColumnsZodSchema,
   tableRowsZodSchema,
