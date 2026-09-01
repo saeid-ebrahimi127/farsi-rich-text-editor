@@ -2,6 +2,7 @@ import { SimpleLoading } from '#/components/simple-loading.tsx'
 import { Button } from '#/components/ui/button.tsx'
 import { FRTE_Content } from '#/farsi-rich-text-editor/content.tsx'
 import { AparatVideo } from '#/farsi-rich-text-editor/extensions/aparat-video.ts'
+import { RtlColumnResizing } from '#/farsi-rich-text-editor/extensions/column-resizing.ts'
 import { CustomCodeBlock } from '#/farsi-rich-text-editor/extensions/custom-code-block.ts'
 import { FRTE_Footer } from '#/farsi-rich-text-editor/footer.tsx'
 import { FRTE_Toolbar } from '#/farsi-rich-text-editor/toolbar/index.tsx'
@@ -61,8 +62,11 @@ export const FarsiRichTextEditor = ({
       TableKit.configure({
         table: {
           resizable: false,
+          renderWrapper: true,
         },
       }),
+
+      RtlColumnResizing,
 
       AparatVideo,
 

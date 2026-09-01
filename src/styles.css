@@ -247,3 +247,7 @@
 .prose blockquote > *::after {
   @apply content-none;
 }
+
+.prose .column-resize-handle {
+  @apply bg-primary pointer-events-none absolute -inset-e-0.5 top-0 bottom-0 z-20 w-1;
+}
