@@ -1,4 +1,3 @@
-import { AparatIcon } from '#/components/aparat-icon.tsx'
 import { TextareaInput } from '#/components/textarea-input.tsx'
 import { Button } from '#/components/ui/button.tsx'
 import {
@@ -8,22 +7,25 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '#/components/ui/dialog.tsx'
 import { FieldGroup } from '#/components/ui/field.tsx'
-import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { aparatIframeEmbedZodSchema } from '#/zod-schema/aparat-iframe-embed.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { Editor } from '@tiptap/react'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const title = 'افزودن ویدئوی آپاراتی'
 
-export const ToolbarAddAparatVideo = ({ editor }: { editor: Editor }) => {
-  const [openDialog, setOpenDialog] = useState(false)
-
+export const AparatDialog = ({
+  openDialog,
+  setOpenDialog,
+  editor,
+}: {
+  openDialog: boolean
+  setOpenDialog: (value: boolean) => void
+  editor: Editor
+}) => {
   const form = useForm({
     resolver: zodResolver(
       z.object({
@@ -62,16 +64,15 @@ export const ToolbarAddAparatVideo = ({ editor }: { editor: Editor }) => {
         setOpenDialog(value)
       }}
     >
-      <DialogTrigger asChild>
-        <ToolbarCreateButton icon={<AparatIcon />} tooltip={title} />
-      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
+
           <DialogDescription>
             کد iframe مربوط به ویدئوی آپاراتی مورد نظر را وارد کنید.
           </DialogDescription>
         </DialogHeader>
+
         <form onSubmit={onSubmit}>
           <FieldGroup>
             <TextareaInput
@@ -80,18 +81,20 @@ export const ToolbarAddAparatVideo = ({ editor }: { editor: Editor }) => {
               label="کد iframe"
               inputProps={{
                 className: 'h-72 max-h-72 scrollbar-thin',
-                style: { direction: 'ltr' },
+                style: {
+                  direction: 'ltr',
+                },
                 autoComplete: 'on',
                 onKeyDown(e) {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault()
-
                     onSubmit()
                   }
                 },
               }}
               autoFocus
             />
+
             <DialogFooter>
               <Button type="submit">افزودن</Button>
             </DialogFooter>

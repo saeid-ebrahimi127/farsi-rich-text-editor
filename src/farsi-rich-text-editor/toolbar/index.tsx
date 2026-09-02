@@ -1,8 +1,8 @@
 import { Separator } from '#/components/ui/separator.tsx'
-import { ToolbarAddAparatVideo } from '#/farsi-rich-text-editor/toolbar/add-aparat-video.tsx'
 import { ToolbarAddModifyCodeBlock } from '#/farsi-rich-text-editor/toolbar/add-modify-code-block.tsx'
 import { ToolbarAddModifyLink } from '#/farsi-rich-text-editor/toolbar/add-modify-link.tsx'
 import { ToolbarAddTable } from '#/farsi-rich-text-editor/toolbar/add-table.tsx'
+import { ToolbarAddVideo } from '#/farsi-rich-text-editor/toolbar/add-video.tsx'
 import {
   ToolbarHighlightColorPicker,
   ToolbarTextColorPicker,
@@ -144,7 +144,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
       <Separator orientation="vertical" />
       <ToolbarAddTable editor={editor} />
       <ToolbarAddModifyLink editor={editor} />
-      <ToolbarAddAparatVideo editor={editor} />
+      <ToolbarAddVideo editor={editor} />
       <ToolbarEmojiPicker editor={editor} />
     </div>
   )
