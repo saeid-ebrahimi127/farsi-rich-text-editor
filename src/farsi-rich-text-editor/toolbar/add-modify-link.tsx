@@ -267,7 +267,7 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
               <TextInput
                 control={form.control}
                 name="href"
-                label="آدرس"
+                label="آدرس (URL)"
                 inputProps={{
                   type: 'url',
                   autoComplete: 'on',
