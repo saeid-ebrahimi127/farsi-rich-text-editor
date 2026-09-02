@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from '#/components/ui/dialog.tsx'
 import { FieldGroup } from '#/components/ui/field.tsx'
+import { TableBubbleMenu } from '#/farsi-rich-text-editor/components/table-bubble-menu.tsx'
 import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { booleanZodSchema } from '#/zod-schema/boolean.ts'
 import {
@@ -45,60 +46,63 @@ export const ToolbarAddTable = ({ editor }: { editor: Editor }) => {
   })
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <ToolbarCreateButton icon={<TableIcon />} tooltip={title} />
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>
-            برای افزودن جدول از فرم زیر استفاده نمایید.
-          </DialogDescription>
-        </DialogHeader>
-        <form
-          onSubmit={form.handleSubmit(({ rows, columns, withHeaderRow }) => {
-            editor
-              .chain()
-              .insertTable({ rows, cols: columns, withHeaderRow })
-              .run()
+    <>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <ToolbarCreateButton icon={<TableIcon />} tooltip={title} />
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription>
+              برای افزودن جدول از فرم زیر استفاده نمایید.
+            </DialogDescription>
+          </DialogHeader>
+          <form
+            onSubmit={form.handleSubmit(({ rows, columns, withHeaderRow }) => {
+              editor
+                .chain()
+                .insertTable({ rows, cols: columns, withHeaderRow })
+                .run()
 
-            form.reset()
+              form.reset()
 
-            setOpen(false)
-          })}
-        >
-          <FieldGroup>
-            <TextInput
-              control={form.control}
-              name="rows"
-              label="تعداد سطرها"
-              inputProps={{
-                type: 'number',
-                autoComplete: 'on',
-              }}
-              autoFocus
-            />
-            <TextInput
-              control={form.control}
-              name="columns"
-              label="تعداد ستون ها"
-              inputProps={{
-                type: 'number',
-                autoComplete: 'on',
-              }}
-            />
-            <CheckboxInput
-              control={form.control}
-              name="withHeaderRow"
-              label="اولین سطر به عنوان سرستون؟"
-            />
-            <DialogFooter>
-              <Button type="submit">افزودن</Button>
-            </DialogFooter>
-          </FieldGroup>
-        </form>
-      </DialogContent>
-    </Dialog>
+              setOpen(false)
+            })}
+          >
+            <FieldGroup>
+              <TextInput
+                control={form.control}
+                name="rows"
+                label="تعداد سطرها"
+                inputProps={{
+                  type: 'number',
+                  autoComplete: 'on',
+                }}
+                autoFocus
+              />
+              <TextInput
+                control={form.control}
+                name="columns"
+                label="تعداد ستون ها"
+                inputProps={{
+                  type: 'number',
+                  autoComplete: 'on',
+                }}
+              />
+              <CheckboxInput
+                control={form.control}
+                name="withHeaderRow"
+                label="اولین سطر به عنوان سرستون؟"
+              />
+              <DialogFooter>
+                <Button type="submit">افزودن</Button>
+              </DialogFooter>
+            </FieldGroup>
+          </form>
+        </DialogContent>
+      </Dialog>
+      <TableBubbleMenu editor={editor} />
+    </>
   )
 }
