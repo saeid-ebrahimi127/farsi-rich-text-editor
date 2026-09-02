@@ -14,7 +14,7 @@ import { FieldGroup } from '#/components/ui/field.tsx'
 import { Separator } from '#/components/ui/separator.tsx'
 import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { getRange } from '#/farsi-rich-text-editor/utils/index.ts'
-import { urlHrefZodSchema, urlTextZodSchema } from '#/zod-schema/url.ts'
+import { urlTextZodSchema, urlZodSchema } from '#/zod-schema/url.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { Editor } from '@tiptap/react'
 import { getMarkRange, useEditorState } from '@tiptap/react'
@@ -106,7 +106,7 @@ const title = 'افزودن / ویرایش لینک'
 
 const formSchema = z.object({
   text: urlTextZodSchema,
-  href: urlHrefZodSchema,
+  href: urlZodSchema,
 })
 
 type FormValues = z.infer<typeof formSchema>
