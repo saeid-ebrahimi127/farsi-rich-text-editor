@@ -1,4 +1,3 @@
-import { AparatIcon } from '#/components/aparat-icon.tsx'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,14 +5,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu.tsx'
-import { AparatDialog } from '#/farsi-rich-text-editor/components/aparat-dialog.tsx'
+import { VideoIFrameDialog } from '#/farsi-rich-text-editor/components/video-iframe-dialog.tsx'
 import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
 import type { Editor } from '@tiptap/react'
-import { VideoIcon } from 'lucide-react'
+import { ChevronLeftIcon, VideoIcon } from 'lucide-react'
 import { useState } from 'react'
 
 export const ToolbarAddVideo = ({ editor }: { editor: Editor }) => {
-  const [openAparatDialog, setOpenAparatDialog] = useState(false)
+  const [openVideoIFrameDialog, setOpenVideoIFrameDialog] = useState(false)
 
   return (
     <>
@@ -29,16 +28,16 @@ export const ToolbarAddVideo = ({ editor }: { editor: Editor }) => {
           className="max-h-48 w-48 scrollbar-thin overflow-auto"
         >
           <DropdownMenuGroup>
-            <DropdownMenuItem onSelect={() => setOpenAparatDialog(true)}>
-              <AparatIcon />
-              افزودن ویدئوی آپاراتی
+            <DropdownMenuItem onSelect={() => setOpenVideoIFrameDialog(true)}>
+              <ChevronLeftIcon />
+              افزودن کد IFrame
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-      <AparatDialog
-        openDialog={openAparatDialog}
-        setOpenDialog={setOpenAparatDialog}
+      <VideoIFrameDialog
+        openDialog={openVideoIFrameDialog}
+        setOpenDialog={setOpenVideoIFrameDialog}
         editor={editor}
       />
     </>

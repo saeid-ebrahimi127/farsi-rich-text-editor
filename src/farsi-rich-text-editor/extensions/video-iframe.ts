@@ -1,7 +1,7 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 
-export const AparatVideo = Node.create({
-  name: 'aparatVideo',
+export const VideoIFrame = Node.create({
+  name: 'videoIFrame',
   group: 'block',
   atom: true,
   addAttributes() {
@@ -9,12 +9,15 @@ export const AparatVideo = Node.create({
       src: {
         default: null,
       },
+      provider: {
+        default: null,
+      },
     }
   },
   parseHTML() {
     return [
       {
-        tag: 'div[data-aparat-video]',
+        tag: 'div[data-video-iframe]',
       },
     ]
   },
@@ -22,8 +25,9 @@ export const AparatVideo = Node.create({
     return [
       'div',
       mergeAttributes({
-        'data-aparat-video': '',
-        class: 'aparat-video',
+        'data-video-iframe': '',
+        'data-provider': node.attrs.provider,
+        class: 'video-iframe',
       }),
       [
         'iframe',

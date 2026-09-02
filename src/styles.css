@@ -234,12 +234,15 @@
   @apply cursor-col-resize;
 }
 
-.prose .aparat-video {
+.prose .video-iframe {
   @apply relative w-full overflow-hidden;
+}
+
+.prose .video-iframe[data-provider='aparat'] {
   padding-top: calc(57% + 65px);
 }
 
-.prose .aparat-video iframe {
+.prose .video-iframe iframe {
   @apply absolute inset-0 h-full w-full border-0;
 }
 

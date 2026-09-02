@@ -9,15 +9,18 @@ import {
   DialogTitle,
 } from '#/components/ui/dialog.tsx'
 import { FieldGroup } from '#/components/ui/field.tsx'
-import { aparatIframeEmbedZodSchema } from '#/zod-schema/aparat-iframe-embed.ts'
+import {
+  findVideoIFrameProvider,
+  videoIFrameZodSchema,
+} from '#/zod-schema/video-iframe.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { Editor } from '@tiptap/react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-const title = 'افزودن ویدئوی آپاراتی'
+const title = 'افزودن ویدئو با کد IFrame'
 
-export const AparatDialog = ({
+export const VideoIFrameDialog = ({
   openDialog,
   setOpenDialog,
   editor,
@@ -29,21 +32,28 @@ export const AparatDialog = ({
   const form = useForm({
     resolver: zodResolver(
       z.object({
-        aparatIframeEmbed: aparatIframeEmbedZodSchema,
+        videoIFrame: videoIFrameZodSchema,
       }),
     ),
     defaultValues: {
-      aparatIframeEmbed: '',
+      videoIFrame: '',
     },
   })
 
   const onSubmit = form.handleSubmit((data) => {
+    const provider = findVideoIFrameProvider(data.videoIFrame)
+
+    if (!provider) {
+      return
+    }
+
     editor
       .chain()
       .insertContent({
-        type: 'aparatVideo',
+        type: 'videoIFrame',
         attrs: {
-          src: data.aparatIframeEmbed,
+          src: data.videoIFrame,
+          provider: provider.name,
         },
       })
       .run()
@@ -69,7 +79,7 @@ export const AparatDialog = ({
           <DialogTitle>{title}</DialogTitle>
 
           <DialogDescription>
-            کد iframe مربوط به ویدئوی آپاراتی مورد نظر را وارد کنید.
+            کد IFrame مربوط به ویدئوی مورد نظر را وارد کنید.
           </DialogDescription>
         </DialogHeader>
 
@@ -77,8 +87,8 @@ export const AparatDialog = ({
           <FieldGroup>
             <TextareaInput
               control={form.control}
-              name="aparatIframeEmbed"
-              label="کد iframe"
+              name="videoIFrame"
+              label="کد IFrame"
               inputProps={{
                 className: 'h-72 max-h-72 scrollbar-thin',
                 style: {
