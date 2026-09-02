@@ -1,4 +1,5 @@
 import { TextInput } from '#/components/text-input.tsx'
+import { TooltipButton } from '#/components/tooltip-button.tsx'
 import { Button } from '#/components/ui/button.tsx'
 import {
   Dialog,
@@ -16,7 +17,8 @@ import { urlHrefZodSchema, urlTextZodSchema } from '#/zod-schema/url.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { Editor } from '@tiptap/react'
 import { getMarkRange, useEditorState } from '@tiptap/react'
-import { LinkIcon } from 'lucide-react'
+import { BubbleMenu as BubbleMenuComponent } from '@tiptap/react/menus'
+import { EditIcon, LinkIcon, TrashIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
@@ -38,6 +40,66 @@ const getLinkRange = (editor: Editor) => {
   return range
 }
 
+type LinkRange = { from: number; to: number }
+
+const handleRemoveLink = ({
+  editor,
+  range,
+  onSuccess,
+}: {
+  editor: Editor
+  range: LinkRange | null
+  onSuccess?: () => void
+}) => {
+  if (!range) {
+    return
+  }
+
+  editor.chain().setTextSelection(range).unsetLink().run()
+
+  onSuccess?.()
+}
+
+export const LinkBubbleMenu = ({
+  editor,
+  range,
+  openEditLinkDialog,
+}: {
+  editor: Editor
+  range: LinkRange | null
+  openEditLinkDialog: () => void
+}) => {
+  return (
+    <BubbleMenuComponent
+      editor={editor}
+      pluginKey="linkBubbleMenu"
+      updateDelay={0}
+      shouldShow={({ editor }) => editor.isActive('link')}
+      options={{
+        placement: 'top',
+      }}
+    >
+      <div className="bg-background flex items-center gap-1 rounded-md border p-1 shadow-md">
+        <TooltipButton
+          tooltip="ویرایش لینک"
+          icon={<EditIcon />}
+          onClick={() => {
+            openEditLinkDialog()
+          }}
+        />
+        <TooltipButton
+          tooltip="حذف لینک"
+          icon={<TrashIcon />}
+          variant={'destructive'}
+          onClick={() => {
+            handleRemoveLink({ editor, range })
+          }}
+        />
+      </div>
+    </BubbleMenuComponent>
+  )
+}
+
 const title = 'افزودن / ویرایش لینک'
 
 const formSchema = z.object({
@@ -50,10 +112,7 @@ type FormValues = z.infer<typeof formSchema>
 export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
   const [open, setOpen] = useState(false)
 
-  const rangeRef = useRef<{
-    from: number
-    to: number
-  } | null>(null)
+  const rangeRef = useRef<LinkRange | null>(null)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -63,9 +122,12 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
     },
   })
 
-  const isActive = useEditorState({
+  const { isActive, currentLinkRange } = useEditorState({
     editor,
-    selector: ({ editor }) => editor.isActive('link'),
+    selector: ({ editor }) => ({
+      isActive: editor.isActive('link'),
+      currentLinkRange: getLinkRange(editor),
+    }),
   })
 
   const closeDialog = () => {
@@ -81,12 +143,14 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
       return
     }
 
-    const range = getLinkRange(editor)
-
-    rangeRef.current = range
+    rangeRef.current = currentLinkRange
 
     form.reset({
-      text: editor.state.doc.textBetween(range.from, range.to, ' '),
+      text: editor.state.doc.textBetween(
+        currentLinkRange.from,
+        currentLinkRange.to,
+        ' ',
+      ),
       href: editor.getAttributes('link').href ?? '',
     })
 
@@ -113,23 +177,23 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
 
     const chain = editor.chain()
 
-    if (linkAtStart && linkAtStart.from < range.from) {
-      chain
-        .setTextSelection({
-          from: linkAtStart.from,
-          to: range.from,
-        })
-        .unsetLink()
+    const unsetOverflow = (overflow: LinkRange | null) => {
+      if (overflow) {
+        chain.setTextSelection(overflow).unsetLink()
+      }
     }
 
-    if (linkAtEnd && range.to < linkAtEnd.to) {
-      chain
-        .setTextSelection({
-          from: range.to,
-          to: linkAtEnd.to,
-        })
-        .unsetLink()
-    }
+    unsetOverflow(
+      linkAtStart && linkAtStart.from < range.from
+        ? { from: linkAtStart.from, to: range.from }
+        : null,
+    )
+
+    unsetOverflow(
+      linkAtEnd && range.to < linkAtEnd.to
+        ? { from: range.to, to: linkAtEnd.to }
+        : null,
+    )
 
     chain
       .insertContentAt(range, [
@@ -161,81 +225,84 @@ export const ToolbarAddModifyLink = ({ editor }: { editor: Editor }) => {
     closeDialog()
   }
 
-  const handleRemove = () => {
-    const range = rangeRef.current
-
-    if (!range) {
-      return
-    }
-
-    editor.chain().setTextSelection(range).unsetLink().run()
-
-    closeDialog()
-  }
-
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
-        <ToolbarCreateButton
-          icon={<LinkIcon />}
-          tooltip={title}
-          variant={isActive ? 'default' : 'ghost'}
-        />
-      </DialogTrigger>
+    <>
+      <Dialog open={open} onOpenChange={handleOpenChange}>
+        <DialogTrigger asChild>
+          <ToolbarCreateButton
+            icon={<LinkIcon />}
+            tooltip={title}
+            variant={isActive ? 'default' : 'ghost'}
+          />
+        </DialogTrigger>
 
-      <DialogContent
-        onCloseAutoFocus={(event) => {
-          event.preventDefault()
-        }}
-      >
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+        <DialogContent
+          onCloseAutoFocus={(event) => {
+            event.preventDefault()
+          }}
+        >
+          <DialogHeader>
+            <DialogTitle>{title}</DialogTitle>
 
-          <DialogDescription>
-            برای افزودن یا ویرایش لینک از فرم زیر استفاده نمایید.
-          </DialogDescription>
-        </DialogHeader>
+            <DialogDescription>
+              برای افزودن یا ویرایش لینک از فرم زیر استفاده نمایید.
+            </DialogDescription>
+          </DialogHeader>
 
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
-          <FieldGroup>
-            <TextInput
-              control={form.control}
-              name="text"
-              label="متن"
-              inputProps={{
-                type: 'text',
-                autoComplete: 'on',
-              }}
-              autoFocus
-            />
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <FieldGroup>
+              <TextInput
+                control={form.control}
+                name="text"
+                label="متن"
+                inputProps={{
+                  type: 'text',
+                  autoComplete: 'on',
+                }}
+                autoFocus
+              />
 
-            <TextInput
-              control={form.control}
-              name="href"
-              label="آدرس"
-              inputProps={{
-                type: 'url',
-                autoComplete: 'on',
-                dir: 'ltr',
-              }}
-            />
+              <TextInput
+                control={form.control}
+                name="href"
+                label="آدرس"
+                inputProps={{
+                  type: 'url',
+                  autoComplete: 'on',
+                  dir: 'ltr',
+                }}
+              />
 
-            <DialogFooter>
-              {isActive && (
-                <Button
-                  type="button"
-                  variant="destructive"
-                  onClick={handleRemove}
-                >
-                  حذف لینک
-                </Button>
-              )}
+              <DialogFooter>
+                {isActive && (
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={() =>
+                      handleRemoveLink({
+                        editor,
+                        range: rangeRef.current,
+                        onSuccess() {
+                          closeDialog()
+                        },
+                      })
+                    }
+                  >
+                    حذف لینک
+                  </Button>
+                )}
 
-              <Button type="submit">{isActive ? 'ذخیره' : 'افزودن'}</Button>
-            </DialogFooter>
-          </FieldGroup>
-        </form>
-      </DialogContent>
-    </Dialog>
+                <Button type="submit">{isActive ? 'ذخیره' : 'افزودن'}</Button>
+              </DialogFooter>
+            </FieldGroup>
+          </form>
+        </DialogContent>
+      </Dialog>
+      <LinkBubbleMenu
+        editor={editor}
+        range={currentLinkRange}
+        openEditLinkDialog={() => handleOpenChange(true)}
+      />
+    </>
   )
 }
