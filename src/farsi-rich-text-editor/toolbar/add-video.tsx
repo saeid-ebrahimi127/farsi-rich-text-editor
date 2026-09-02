@@ -6,12 +6,14 @@ import {
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu.tsx'
 import { VideoIFrameDialog } from '#/farsi-rich-text-editor/components/video-iframe-dialog.tsx'
+import { VideoURLDialog } from '#/farsi-rich-text-editor/components/video-url-dialog.tsx'
 import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
 import type { Editor } from '@tiptap/react'
 import { ChevronLeftIcon, VideoIcon } from 'lucide-react'
 import { useState } from 'react'
 
 export const ToolbarAddVideo = ({ editor }: { editor: Editor }) => {
+  const [openVideoURLDialog, setOpenVideoURLDialog] = useState(false)
   const [openVideoIFrameDialog, setOpenVideoIFrameDialog] = useState(false)
 
   return (
@@ -28,6 +30,10 @@ export const ToolbarAddVideo = ({ editor }: { editor: Editor }) => {
           className="max-h-48 w-48 scrollbar-thin overflow-auto"
         >
           <DropdownMenuGroup>
+            <DropdownMenuItem onSelect={() => setOpenVideoURLDialog(true)}>
+              <ChevronLeftIcon />
+              افزودن آدرس (URL)
+            </DropdownMenuItem>
             <DropdownMenuItem onSelect={() => setOpenVideoIFrameDialog(true)}>
               <ChevronLeftIcon />
               افزودن کد IFrame
@@ -35,6 +41,11 @@ export const ToolbarAddVideo = ({ editor }: { editor: Editor }) => {
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
+      <VideoURLDialog
+        openDialog={openVideoURLDialog}
+        setOpenDialog={setOpenVideoURLDialog}
+        editor={editor}
+      />
       <VideoIFrameDialog
         openDialog={openVideoIFrameDialog}
         setOpenDialog={setOpenVideoIFrameDialog}

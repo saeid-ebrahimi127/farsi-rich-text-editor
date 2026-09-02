@@ -5,6 +5,7 @@ import { RtlColumnResizing } from '#/farsi-rich-text-editor/extensions/column-re
 import { CustomCodeBlock } from '#/farsi-rich-text-editor/extensions/custom-code-block.ts'
 import { RtlTableArrowNavigation } from '#/farsi-rich-text-editor/extensions/rtl-table-arrow-navigation.ts'
 import { VideoIFrame } from '#/farsi-rich-text-editor/extensions/video-iframe.ts'
+import { VideoURL } from '#/farsi-rich-text-editor/extensions/video-url.ts'
 import { FRTE_Footer } from '#/farsi-rich-text-editor/footer.tsx'
 import { FRTE_Toolbar } from '#/farsi-rich-text-editor/toolbar/index.tsx'
 import { CharacterCount } from '@tiptap/extension-character-count'
@@ -70,6 +71,7 @@ export const FarsiRichTextEditor = ({
       RtlColumnResizing,
       RtlTableArrowNavigation,
 
+      VideoURL,
       VideoIFrame,
 
       CustomCodeBlock.configure({
