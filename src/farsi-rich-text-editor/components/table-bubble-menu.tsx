@@ -76,7 +76,7 @@ export const TableBubbleMenu = ({ editor }: { editor: Editor }) => {
       updateDelay={0}
       shouldShow={({ editor }) => editor.isActive('table')}
       options={{
-        placement: 'top',
+        placement: 'bottom',
       }}
     >
       <div className="bg-background flex items-center gap-1 rounded-md border p-1 shadow-md">
@@ -103,9 +103,9 @@ export const TableBubbleMenu = ({ editor }: { editor: Editor }) => {
         <TooltipButton
           tooltip="حذف ستون"
           icon={<Trash2Icon />}
-          variant={'destructive'}
           onClick={() => editor.chain().focus().deleteColumn().run()}
           disabled={!canDeleteColumn}
+          className="text-destructive!"
         />
         <Separator orientation="vertical" className="mx-1" />
         <TooltipButton
@@ -123,17 +123,17 @@ export const TableBubbleMenu = ({ editor }: { editor: Editor }) => {
         <TooltipButton
           tooltip="حذف سطر"
           icon={<Trash2Icon />}
-          variant="destructive"
           onClick={() => editor.chain().focus().deleteRow().run()}
           disabled={!canDeleteRow}
+          className="text-destructive!"
         />
         <Separator orientation="vertical" className="mx-1" />
         <TooltipButton
           tooltip="حذف جدول"
           icon={<Trash2Icon />}
-          variant="destructive"
           onClick={() => editor.chain().focus().deleteTable().run()}
           disabled={!canDeleteTable}
+          className="text-destructive!"
         />
       </div>
     </BubbleMenuComponent>

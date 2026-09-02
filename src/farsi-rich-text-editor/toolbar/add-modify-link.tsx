@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from '#/components/ui/dialog.tsx'
 import { FieldGroup } from '#/components/ui/field.tsx'
+import { Separator } from '#/components/ui/separator.tsx'
 import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
 import { getRange } from '#/farsi-rich-text-editor/utils/index.ts'
 import { urlHrefZodSchema, urlTextZodSchema } from '#/zod-schema/url.ts'
@@ -18,7 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import type { Editor } from '@tiptap/react'
 import { getMarkRange, useEditorState } from '@tiptap/react'
 import { BubbleMenu as BubbleMenuComponent } from '@tiptap/react/menus'
-import { EditIcon, LinkIcon, TrashIcon } from 'lucide-react'
+import { Edit3Icon, LinkIcon, Trash2Icon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
@@ -76,24 +77,25 @@ export const LinkBubbleMenu = ({
       updateDelay={0}
       shouldShow={({ editor }) => editor.isActive('link')}
       options={{
-        placement: 'top',
+        placement: 'bottom',
       }}
     >
       <div className="bg-background flex items-center gap-1 rounded-md border p-1 shadow-md">
         <TooltipButton
           tooltip="ویرایش لینک"
-          icon={<EditIcon />}
+          icon={<Edit3Icon />}
           onClick={() => {
             openEditLinkDialog()
           }}
         />
+        <Separator className="mx-1" orientation="vertical" />
         <TooltipButton
           tooltip="حذف لینک"
-          icon={<TrashIcon />}
-          variant={'destructive'}
+          icon={<Trash2Icon />}
           onClick={() => {
             handleRemoveLink({ editor, range })
           }}
+          className="text-destructive!"
         />
       </div>
     </BubbleMenuComponent>
