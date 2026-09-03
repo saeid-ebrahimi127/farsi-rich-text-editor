@@ -165,6 +165,7 @@ src/
 │   │   ├── video-iframe-dialog.tsx      # دیالوگ جاسازی ویدئو (IFrame)
 │   │   └── table-bubble-menu.tsx       # منوی حبابکی جدول
 │   ├── toolbar/                        # نوار ابزار و کامپوننت‌های آن
+│   ├── styles.css                      # استایل‌های اسکوپ‌شده ویرایشگر
 │   └── utils/
 │       ├── index.ts                    # توابع کمکی (شمارش کلمات و ...)
 │       └── lowlight.ts                 # پیکربندی زبان‌های هایلایت
