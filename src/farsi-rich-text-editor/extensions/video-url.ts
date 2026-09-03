@@ -1,12 +1,11 @@
-import { Node, mergeAttributes } from '@tiptap/core'
+import { VideoURLNodeView } from '#/farsi-rich-text-editor/components/video-url-node-view.tsx'
+import { mergeAttributes, Node } from '@tiptap/core'
+import { ReactNodeViewRenderer } from '@tiptap/react'
 
 export const VideoURL = Node.create({
   name: 'videoURL',
-
   group: 'block',
-
   atom: true,
-
   addAttributes() {
     return {
       src: {
@@ -14,46 +13,23 @@ export const VideoURL = Node.create({
       },
     }
   },
-
-  parseHTML() {
-    return [
-      {
-        tag: 'div.video-wrapper',
-        getAttrs: (element) => {
-          if (!(element instanceof HTMLElement)) {
-            return false
-          }
-
-          const video = element.querySelector('video[data-video-url]')
-
-          if (!video) {
-            return false
-          }
-
-          return {
-            src: video.getAttribute('src'),
-          }
-        },
-      },
-    ]
-  },
-
   renderHTML({ node }) {
     return [
       'div',
       mergeAttributes({
-        class: 'video-wrapper',
+        class: 'video-wrapper relative mx-auto aspect-video w-full max-w-3xl',
       }),
       [
         'video',
         {
-          'data-video-url': '',
-          class: 'video-url',
           src: node.attrs.src,
           controls: 'true',
           playsinline: 'true',
         },
       ],
     ]
+  },
+  addNodeView() {
+    return ReactNodeViewRenderer(VideoURLNodeView)
   },
 })

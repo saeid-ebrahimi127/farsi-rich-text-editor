@@ -49,6 +49,7 @@
 - **لینک**: افزودن و ویرایش لینک با اعتبارسنجی آدرس
 - **منوی حبابکی لینک**: ویرایش و حذف سریع لینک با کلیک روی لینک
 - **جاسازی ویدئو**: افزودن ویدئو از طریق **آدرس (URL)** یا **جاسازی کد IFrame** با پشتیبانی از آپارات و سایر سرویس‌ها
+- **حذف ویدئو**: دکمه حذف سریع ویدئو با نگه‌داشتن موس روی آن
 - **بلاک کد**: درج کد با **هایلایت سینتکس** برای HTML ، CSS ، JavaScript ، TypeScript ، PHP ، Python ، JSON ، Bash ، SQL و Markdown (با جهت LTR خودکار)
 
 <strong>امکانات اختصاصی فارسی</strong>
@@ -129,13 +130,13 @@ function App() {
 
 ### اکستنشن‌های سفارشی
 
-| فایل                                       | توضیح                                              |
-| ------------------------------------------ | -------------------------------------------------- |
-| `extensions/video-url.ts`                  | نود سفارشی برای درج ویدئو از طریق آدرس (URL)       |
-| `extensions/video-iframe.ts`               | نود سفارشی برای جاسازی ویدئو با سیستم چندتامتدیایی |
-| `extensions/custom-code-block.ts`          | بلاک کد lowlight با جهت خودکار LTR                 |
-| `extensions/column-resizing.ts`            | تغییر اندازه ستون جدول با پشتیبانی RTL             |
-| `extensions/rtl-table-arrow-navigation.ts` | ناوبری با کلیدهای جهت‌دار در جدول RTL              |
+| فایل                                       | توضیح                                           |
+| ------------------------------------------ | ----------------------------------------------- |
+| `extensions/video-url.ts`                  | نود ویدئو با آدرس (URL) و نودویو با دکمه حذف    |
+| `extensions/video-iframe.ts`               | نود ویدئو IFrame چندسرویسی و نودویو با دکمه حذف |
+| `extensions/custom-code-block.ts`          | بلاک کد lowlight با جهت خودکار LTR              |
+| `extensions/column-resizing.ts`            | تغییر اندازه ستون جدول با پشتیبانی RTL          |
+| `extensions/rtl-table-arrow-navigation.ts` | ناوبری با کلیدهای جهت‌دار در جدول RTL           |
 
 ### اسکیم‌های اعتبارسنجی
 
@@ -163,7 +164,9 @@ src/
 │   ├── components/
 │   │   ├── video-url-dialog.tsx        # دیالوگ درج ویدئو با آدرس (URL)
 │   │   ├── video-iframe-dialog.tsx      # دیالوگ جاسازی ویدئو (IFrame)
-│   │   └── table-bubble-menu.tsx       # منوی حبابکی جدول
+│   │   ├── video-url-node-view.tsx      # نود ویدئو با آدرس (دکمه حذف در هاور)
+│   │   ├── video-iframe-node-view.tsx   # نود ویدئو IFrame (دکمه حذف در هاور)
+│   │   └── table-bubble-menu.tsx        # منوی حبابکی جدول
 │   ├── toolbar/                        # نوار ابزار و کامپوننت‌های آن
 │   ├── styles.css                      # استایل‌های اسکوپ‌شده ویرایشگر
 │   └── utils/
