@@ -49,7 +49,7 @@
 - **لینک**: افزودن و ویرایش لینک با اعتبارسنجی آدرس
 - **منوی حبابکی لینک**: ویرایش و حذف سریع لینک با کلیک روی لینک
 - **جاسازی ویدئو**: افزودن ویدئو از طریق **آدرس (URL)** یا **جاسازی کد IFrame** با پشتیبانی از آپارات و سایر سرویس‌ها
-- **حذف ویدئو**: منوی حذف ویدئو از طریق دکمه منوی روی ویدئو
+- **حذف ویدئو**: دکمه حذف سریع ویدئو در گوشه ویدئو
 - **بلاک کد**: درج کد با **هایلایت سینتکس** برای HTML ، CSS ، JavaScript ، TypeScript ، PHP ، Python ، JSON ، Bash ، SQL و Markdown (با جهت LTR خودکار)
 
 <strong>امکانات اختصاصی فارسی</strong>
@@ -132,8 +132,8 @@ function App() {
 
 | فایل                                       | توضیح                                           |
 | ------------------------------------------ | ----------------------------------------------- |
-| `extensions/video-url.ts`                  | نود ویدئو با آدرس (URL) — نودویو با منوی حذف    |
-| `extensions/video-iframe.ts`               | نود ویدئو IFrame چندسرویسی — نودویو با منوی حذف |
+| `extensions/video-url.ts`                  | نود ویدئو با آدرس (URL) — نودویو با دکمه حذف    |
+| `extensions/video-iframe.ts`               | نود ویدئو IFrame چندسرویسی — نودویو با دکمه حذف |
 | `extensions/custom-code-block.ts`          | بلاک کد lowlight با جهت خودکار LTR              |
 | `extensions/column-resizing.ts`            | تغییر اندازه ستون جدول با پشتیبانی RTL          |
 | `extensions/rtl-table-arrow-navigation.ts` | ناوبری با کلیدهای جهت‌دار در جدول RTL           |
@@ -165,8 +165,8 @@ src/
 │   ├── components/
 │   │   ├── video-url-dialog.tsx        # دیالوگ درج ویدئو با آدرس (URL)
 │   │   ├── video-iframe-dialog.tsx      # دیالوگ جاسازی ویدئو (IFrame)
-│   │   ├── video-url-node-view.tsx      # نود ویدئو با آدرس (منوی حذف)
-│   │   ├── video-iframe-node-view.tsx   # نود ویدئو IFrame (منوی حذف)
+│   │   ├── video-url-node-view.tsx      # نود ویدئو با آدرس (دکمه حذف)
+│   │   ├── video-iframe-node-view.tsx   # نود ویدئو IFrame (دکمه حذف)
 │   │   ├── table-bubble-menu.tsx        # منوی حبابکی جدول
 │   │   └── link-bubble-menu.tsx         # منوی حبابکی لینک
 │   ├── toolbar/                        # نوار ابزار و کامپوننت‌های آن

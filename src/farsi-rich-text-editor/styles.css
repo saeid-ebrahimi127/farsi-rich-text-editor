@@ -92,7 +92,11 @@
 }
 
 .prose .tableWrapper {
-  @apply scrollbar-thin overflow-x-auto;
+  @apply mb-[2em] scrollbar-thin overflow-x-auto;
+}
+
+.prose .tableWrapper table {
+  @apply mb-0;
 }
 
 .prose .resize-cursor {

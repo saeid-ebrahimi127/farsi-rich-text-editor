@@ -1,4 +1,4 @@
-import { Button } from '#/components/ui/button.tsx'
+import { TooltipButton } from '#/components/tooltip-button.tsx'
 import type { LinkRange } from '#/farsi-rich-text-editor/types.ts'
 import { handleRemoveLink } from '#/farsi-rich-text-editor/utils/index.ts'
 import type { Editor } from '@tiptap/core'
@@ -26,26 +26,23 @@ export const LinkBubbleMenu = ({
         placement: 'bottom',
       }}
     >
-      <div className="w-40 rounded-2xl border bg-white p-1 shadow">
-        <div className="flex max-h-40 scrollbar-thin flex-col gap-1 overflow-auto p-1">
-          <Button
-            type="button"
-            variant="outline"
-            className="justify-start"
+      <div className="rounded-2xl border bg-white p-1 shadow">
+        <div className="flex items-center gap-1.5 p-1">
+          <TooltipButton
+            tooltip="ویرایش لینک"
+            icon={<Edit3Icon />}
+            variant={'outline'}
             onClick={openEditLinkDialog}
-          >
-            <Edit3Icon />
-            ویرایش لینک
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            className="text-destructive! justify-start"
-            onClick={() => handleRemoveLink({ editor, range })}
-          >
-            <Trash2Icon />
-            حذف لینک
-          </Button>
+          />
+          <TooltipButton
+            tooltip="حذف لینک"
+            icon={<Trash2Icon />}
+            variant={'outline'}
+            className="text-destructive!"
+            onClick={() => {
+              handleRemoveLink({ editor, range })
+            }}
+          />
         </div>
       </div>
     </BubbleMenu>

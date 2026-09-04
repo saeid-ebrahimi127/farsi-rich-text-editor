@@ -30,13 +30,13 @@ export const FRTE_Content = ({
     >
       {showPreview ? (
         <div
-          className="prose text-sm"
+          className="prose scrollbar-thin overflow-auto text-sm"
           dangerouslySetInnerHTML={{ __html: editor.getHTML() }}
         />
       ) : (
         <EditorContent
           editor={editor}
-          className="prose min-h-96 [&_.ProseMirror]:outline-none"
+          className="prose min-h-96 scrollbar-thin overflow-auto [&_.ProseMirror]:outline-none"
         />
       )}
     </div>
