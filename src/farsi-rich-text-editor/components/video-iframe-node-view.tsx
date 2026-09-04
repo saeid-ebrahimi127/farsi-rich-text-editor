@@ -44,7 +44,12 @@ export const VideoIFrameNodeView = ({ node, deleteNode }: NodeViewProps) => {
               )}
             />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-40">
+          <DropdownMenuContent
+            className="w-40"
+            onCloseAutoFocus={(e) => {
+              e.preventDefault()
+            }}
+          >
             <DropdownMenuGroup className="max-h-40 scrollbar-thin overflow-auto">
               <DropdownMenuItem variant="destructive" onSelect={deleteNode}>
                 <Trash2Icon />
