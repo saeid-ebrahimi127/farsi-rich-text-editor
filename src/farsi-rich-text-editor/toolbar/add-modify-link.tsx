@@ -1,5 +1,4 @@
 import { TextInput } from '#/components/text-input.tsx'
-import { TooltipButton } from '#/components/tooltip-button.tsx'
 import { Button } from '#/components/ui/button.tsx'
 import {
   Dialog,
@@ -11,96 +10,21 @@ import {
   DialogTrigger,
 } from '#/components/ui/dialog.tsx'
 import { FieldGroup } from '#/components/ui/field.tsx'
-import { Separator } from '#/components/ui/separator.tsx'
+import { LinkBubbleMenu } from '#/farsi-rich-text-editor/components/link-bubble-menu.tsx'
 import { ToolbarCreateButton } from '#/farsi-rich-text-editor/toolbar/create-button.tsx'
-import { getRange } from '#/farsi-rich-text-editor/utils/index.ts'
+import type { LinkRange } from '#/farsi-rich-text-editor/types.ts'
+import {
+  getLinkRange,
+  handleRemoveLink,
+} from '#/farsi-rich-text-editor/utils/index.ts'
 import { urlTextZodSchema, urlZodSchema } from '#/zod-schema/url.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { Editor } from '@tiptap/react'
 import { getMarkRange, useEditorState } from '@tiptap/react'
-import { BubbleMenu as BubbleMenuComponent } from '@tiptap/react/menus'
-import { Edit3Icon, LinkIcon, Trash2Icon } from 'lucide-react'
+import { LinkIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
-
-const getLinkRange = (editor: Editor) => {
-  const range = getRange(editor)
-  const link = editor.state.schema.marks.link
-
-  if (!link) {
-    return range
-  }
-
-  const { selection } = editor.state
-
-  if (selection.empty && editor.isActive('link')) {
-    return getMarkRange(selection.$from, link) ?? range
-  }
-
-  return range
-}
-
-type LinkRange = { from: number; to: number }
-
-const handleRemoveLink = ({
-  editor,
-  range,
-  onSuccess,
-}: {
-  editor: Editor
-  range: LinkRange | null
-  onSuccess?: () => void
-}) => {
-  if (!range) {
-    return
-  }
-
-  editor.chain().setTextSelection(range).unsetLink().run()
-
-  onSuccess?.()
-}
-
-export const LinkBubbleMenu = ({
-  editor,
-  range,
-  openEditLinkDialog,
-}: {
-  editor: Editor
-  range: LinkRange | null
-  openEditLinkDialog: () => void
-}) => {
-  return (
-    <BubbleMenuComponent
-      editor={editor}
-      pluginKey="linkBubbleMenu"
-      updateDelay={0}
-      shouldShow={({ editor }) => editor.isActive('link')}
-      options={{
-        placement: 'bottom',
-      }}
-    >
-      <div className="bg-background flex items-center gap-1 rounded-md border p-1 shadow-md">
-        <TooltipButton
-          tooltip="ویرایش لینک"
-          icon={<Edit3Icon />}
-          onClick={() => {
-            openEditLinkDialog()
-          }}
-        />
-        <Separator className="mx-1" orientation="vertical" />
-        <TooltipButton
-          tooltip="حذف لینک"
-          icon={<Trash2Icon />}
-          onClick={() => {
-            handleRemoveLink({ editor, range })
-          }}
-          className="text-destructive!"
-        />
-      </div>
-    </BubbleMenuComponent>
-  )
-}
 
 const title = 'افزودن / ویرایش لینک'
 
