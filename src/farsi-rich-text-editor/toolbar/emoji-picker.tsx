@@ -131,12 +131,12 @@ export const ToolbarEmojiPicker = ({ editor }: { editor: Editor }) => {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="max-h-64 w-64 scrollbar-thin overflow-auto"
+        className="w-64"
         onCloseAutoFocus={(e) => {
           e.preventDefault()
         }}
       >
-        <DropdownMenuGroup className="grid grid-cols-6 gap-1 p-2">
+        <DropdownMenuGroup className="grid max-h-64 scrollbar-thin grid-cols-6 gap-1 overflow-auto p-2">
           {emojis.map((emoji, index) => (
             <button
               key={index}
