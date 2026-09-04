@@ -1,6 +1,6 @@
 import type { LinkRange } from '#/farsi-rich-text-editor/types.ts'
-import { getMarkRange } from '@tiptap/react'
 import type { Editor } from '@tiptap/react'
+import { findParentNode, getMarkRange } from '@tiptap/react'
 
 export const getRange = (editor: Editor) => {
   const { from, to } = editor.state.selection
@@ -41,4 +41,44 @@ export const handleRemoveLink = ({
   editor.chain().setTextSelection(range).unsetLink().run()
 
   onSuccess?.()
+}
+
+const getTableParent = (editor: Editor) =>
+  findParentNode((node) => node.type.name === 'table')(editor.state.selection)
+
+export const hasHeaderRow = (editor: Editor) => {
+  const tableParent = getTableParent(editor)
+
+  if (!tableParent) return false
+
+  const firstRow = tableParent.node.firstChild
+  const firstCell = firstRow?.firstChild
+
+  return firstCell?.type.name === 'tableHeader'
+}
+
+export const addHeaderRow = (editor: Editor) => {
+  const tableParent = getTableParent(editor)
+
+  if (!tableParent) return
+
+  const firstRowPos = tableParent.pos + 2
+
+  editor
+    .chain()
+    .focus()
+    .setTextSelection(firstRowPos)
+    .addRowBefore()
+    .toggleHeaderRow()
+    .run()
+}
+
+export const removeHeaderRow = (editor: Editor) => {
+  const tableParent = getTableParent(editor)
+
+  if (!tableParent) return
+
+  const firstRowPos = tableParent.pos + 2
+
+  editor.chain().focus().setTextSelection(firstRowPos).deleteRow().run()
 }

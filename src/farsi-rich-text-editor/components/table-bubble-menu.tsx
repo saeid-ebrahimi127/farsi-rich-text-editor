@@ -1,48 +1,24 @@
-import { TooltipButton } from '#/components/tooltip-button.tsx'
+import { Button } from '#/components/ui/button.tsx'
 import { Separator } from '#/components/ui/separator.tsx'
+import {
+  addHeaderRow,
+  hasHeaderRow,
+  removeHeaderRow,
+} from '#/farsi-rich-text-editor/utils/index.ts'
+import { cn } from '#/lib/utils.ts'
 import type { Editor } from '@tiptap/react'
-import { findParentNode, useEditorState } from '@tiptap/react'
+import { useEditorState } from '@tiptap/react'
 import { BubbleMenu as BubbleMenuComponent } from '@tiptap/react/menus'
 import { Columns2Icon, Heading, Rows2Icon, Trash2Icon } from 'lucide-react'
+import type { ComponentType } from 'react'
 
-const getTableParent = (editor: Editor) =>
-  findParentNode((node) => node.type.name === 'table')(editor.state.selection)
-
-const hasHeaderRow = (editor: Editor) => {
-  const tableParent = getTableParent(editor)
-
-  if (!tableParent) return false
-
-  const firstRow = tableParent.node.firstChild
-  const firstCell = firstRow?.firstChild
-
-  return firstCell?.type.name === 'tableHeader'
-}
-
-const addHeaderRow = (editor: Editor) => {
-  const tableParent = getTableParent(editor)
-
-  if (!tableParent) return
-
-  const firstRowPos = tableParent.pos + 2
-
-  editor
-    .chain()
-    .focus()
-    .setTextSelection(firstRowPos)
-    .addRowBefore()
-    .toggleHeaderRow()
-    .run()
-}
-
-const removeHeaderRow = (editor: Editor) => {
-  const tableParent = getTableParent(editor)
-
-  if (!tableParent) return
-
-  const firstRowPos = tableParent.pos + 2
-
-  editor.chain().focus().setTextSelection(firstRowPos).deleteRow().run()
+type ActionItem = {
+  key: string
+  label: string
+  icon: ComponentType<{ className?: string }>
+  onClick: (editor: Editor) => void
+  enabled: boolean
+  destructive?: boolean
 }
 
 export const TableBubbleMenu = ({ editor }: { editor: Editor }) => {
@@ -69,6 +45,77 @@ export const TableBubbleMenu = ({ editor }: { editor: Editor }) => {
     }),
   })
 
+  const columnActions: ActionItem[] = [
+    {
+      key: 'add-column-before',
+      label: 'افزودن ستون قبلی',
+      icon: Columns2Icon,
+      onClick: (e) => e.chain().focus().addColumnBefore().run(),
+      enabled: canAddColumnBefore,
+    },
+    {
+      key: 'add-column-after',
+      label: 'افزودن ستون بعدی',
+      icon: Columns2Icon,
+      onClick: (e) => e.chain().focus().addColumnAfter().run(),
+      enabled: canAddColumnAfter,
+    },
+    {
+      key: 'delete-column',
+      label: 'حذف ستون فعلی',
+      icon: Trash2Icon,
+      onClick: (e) => e.chain().focus().deleteColumn().run(),
+      enabled: canDeleteColumn,
+      destructive: true,
+    },
+  ]
+
+  const rowActions: ActionItem[] = [
+    {
+      key: 'add-row-before',
+      label: 'افزودن سطر قبلی',
+      icon: Rows2Icon,
+      onClick: (e) => e.chain().focus().addRowBefore().run(),
+      enabled: canAddRowBefore,
+    },
+    {
+      key: 'add-row-after',
+      label: 'افزودن سطر بعدی',
+      icon: Rows2Icon,
+      onClick: (e) => e.chain().focus().addRowAfter().run(),
+      enabled: canAddRowAfter,
+    },
+    {
+      key: 'delete-row',
+      label: 'حذف سطر فعلی',
+      icon: Trash2Icon,
+      onClick: (e) => e.chain().focus().deleteRow().run(),
+      enabled: canDeleteRow,
+      destructive: true,
+    },
+  ]
+
+  const renderAction = ({
+    key,
+    label,
+    icon: Icon,
+    onClick,
+    enabled,
+    destructive,
+  }: ActionItem) => (
+    <Button
+      key={key}
+      type="button"
+      className={cn('justify-start', { 'text-destructive!': destructive })}
+      variant={'outline'}
+      onClick={() => onClick(editor)}
+      disabled={!enabled}
+    >
+      <Icon />
+      {label}
+    </Button>
+  )
+
   return (
     <BubbleMenuComponent
       editor={editor}
@@ -79,62 +126,38 @@ export const TableBubbleMenu = ({ editor }: { editor: Editor }) => {
         placement: 'bottom',
       }}
     >
-      <div className="bg-background flex items-center gap-1 rounded-md border p-1 shadow-md">
-        <TooltipButton
-          tooltip={tableHasHeaderRow ? 'حذف سرستون' : 'افزودن سرستون'}
-          icon={<Heading />}
-          onClick={() =>
-            tableHasHeaderRow ? removeHeaderRow(editor) : addHeaderRow(editor)
-          }
-        />
-        <Separator orientation="vertical" className="mx-1" />
-        <TooltipButton
-          tooltip="افزودن ستون قبلی"
-          icon={<Columns2Icon />}
-          onClick={() => editor.chain().focus().addColumnBefore().run()}
-          disabled={!canAddColumnBefore}
-        />
-        <TooltipButton
-          tooltip="افزودن ستون بعدی"
-          icon={<Columns2Icon />}
-          onClick={() => editor.chain().focus().addColumnAfter().run()}
-          disabled={!canAddColumnAfter}
-        />
-        <TooltipButton
-          tooltip="حذف ستون"
-          icon={<Trash2Icon />}
-          onClick={() => editor.chain().focus().deleteColumn().run()}
-          disabled={!canDeleteColumn}
-          className="text-destructive!"
-        />
-        <Separator orientation="vertical" className="mx-1" />
-        <TooltipButton
-          tooltip="افزودن سطر قبلی"
-          icon={<Rows2Icon />}
-          onClick={() => editor.chain().focus().addRowBefore().run()}
-          disabled={!canAddRowBefore}
-        />
-        <TooltipButton
-          tooltip="افزودن سطر بعدی"
-          icon={<Rows2Icon />}
-          onClick={() => editor.chain().focus().addRowAfter().run()}
-          disabled={!canAddRowAfter}
-        />
-        <TooltipButton
-          tooltip="حذف سطر"
-          icon={<Trash2Icon />}
-          onClick={() => editor.chain().focus().deleteRow().run()}
-          disabled={!canDeleteRow}
-          className="text-destructive!"
-        />
-        <Separator orientation="vertical" className="mx-1" />
-        <TooltipButton
-          tooltip="حذف جدول"
-          icon={<Trash2Icon />}
-          onClick={() => editor.chain().focus().deleteTable().run()}
-          disabled={!canDeleteTable}
-          className="text-destructive!"
-        />
+      <div className="w-54 rounded-2xl border bg-white p-1 shadow">
+        <div className="flex max-h-54 scrollbar-thin flex-col gap-1 overflow-auto p-1">
+          <Button
+            type="button"
+            variant={'outline'}
+            onClick={() =>
+              tableHasHeaderRow ? removeHeaderRow(editor) : addHeaderRow(editor)
+            }
+            className="justify-start"
+          >
+            <Heading />
+            {tableHasHeaderRow ? 'حذف سرستون' : 'افزودن سرستون'}
+          </Button>
+
+          <Separator className="my-1" />
+          {columnActions.map(renderAction)}
+
+          <Separator className="my-1" />
+          {rowActions.map(renderAction)}
+
+          <Separator className="my-1" />
+          <Button
+            type="button"
+            variant={'outline'}
+            onClick={() => editor.chain().focus().deleteTable().run()}
+            disabled={!canDeleteTable}
+            className="text-destructive! justify-start"
+          >
+            <Trash2Icon />
+            حذف جدول
+          </Button>
+        </div>
       </div>
     </BubbleMenuComponent>
   )
