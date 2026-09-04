@@ -90,7 +90,6 @@ export const VideoIFrameDialog = ({
               name="videoIFrame"
               label="کد IFrame"
               inputProps={{
-                className: 'h-72 max-h-72 scrollbar-thin',
                 style: {
                   direction: 'ltr',
                 },

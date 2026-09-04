@@ -27,10 +27,10 @@ export const LinkBubbleMenu = ({
       }}
     >
       <div className="w-40 rounded-2xl border bg-white p-1 shadow">
-        <div className="flex max-h-40 scrollbar-thin flex-col gap-1 overflow-auto">
+        <div className="flex max-h-40 scrollbar-thin flex-col gap-1 overflow-auto p-1">
           <Button
             type="button"
-            variant="ghost"
+            variant="outline"
             className="justify-start"
             onClick={openEditLinkDialog}
           >
@@ -39,8 +39,8 @@ export const LinkBubbleMenu = ({
           </Button>
           <Button
             type="button"
-            variant="destructive"
-            className="justify-start"
+            variant="outline"
+            className="text-destructive! justify-start"
             onClick={() => handleRemoveLink({ editor, range })}
           >
             <Trash2Icon />

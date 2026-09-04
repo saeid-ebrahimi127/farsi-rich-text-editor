@@ -6,59 +6,49 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu.tsx'
-import { cn } from '#/lib/utils.ts'
 import type { NodeViewProps } from '@tiptap/react'
 import { NodeViewWrapper } from '@tiptap/react'
 import { MenuIcon, Trash2Icon } from 'lucide-react'
-import { useState } from 'react'
 
 export const VideoIFrameNodeView = ({ node, deleteNode }: NodeViewProps) => {
-  const [hovered, setHovered] = useState(false)
-  const [openMenu, setOpenMenu] = useState(false)
-
   return (
     <NodeViewWrapper
       as="div"
       className="video-wrapper relative mx-auto mb-[2em] aspect-video w-full max-w-3xl"
       data-provider={node.attrs.provider}
     >
-      <div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <iframe
-          src={node.attrs.src}
-          className="absolute inset-0 h-full w-full border-0"
-          allowFullScreen
-        />
-        <DropdownMenu open={openMenu} onOpenChange={setOpenMenu}>
-          <DropdownMenuTrigger asChild>
-            <TooltipButton
-              tooltip="منو"
-              icon={<MenuIcon />}
-              className={cn(
-                'absolute -top-4 left-[50%] translate-x-[-50%] border bg-white shadow transition-all',
-                hovered || openMenu
-                  ? 'visible opacity-100'
-                  : 'invisible opacity-0',
-              )}
-            />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-40"
-            onCloseAutoFocus={(e) => {
-              e.preventDefault()
-            }}
-          >
-            <DropdownMenuGroup className="max-h-40 scrollbar-thin overflow-auto">
-              <DropdownMenuItem variant="destructive" onSelect={deleteNode}>
-                <Trash2Icon />
-                حذف ویدئو
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      <iframe
+        src={node.attrs.src}
+        className="absolute inset-0 h-full w-full border-0"
+        allowFullScreen
+      />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <TooltipButton
+            tooltip="منو"
+            icon={<MenuIcon />}
+            className={'absolute top-4 -right-4 border bg-white shadow'}
+          />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          side="left"
+          className="w-40"
+          onCloseAutoFocus={(e) => {
+            e.preventDefault()
+          }}
+        >
+          <DropdownMenuGroup className="max-h-40 scrollbar-thin overflow-auto">
+            <DropdownMenuItem
+              variant="default"
+              className="text-destructive! not-data-[variant=destructive]:focus:**:text-destructive!"
+              onSelect={deleteNode}
+            >
+              <Trash2Icon />
+              حذف ویدئو
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </NodeViewWrapper>
   )
 }

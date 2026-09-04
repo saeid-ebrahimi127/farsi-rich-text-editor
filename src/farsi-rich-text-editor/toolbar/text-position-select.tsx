@@ -70,9 +70,9 @@ export const ToolbarTextPositionSelect = ({ editor }: { editor: Editor }) => {
         onCloseAutoFocus={(e) => {
           e.preventDefault()
         }}
-        className="max-h-48 w-48 scrollbar-thin overflow-auto"
+        className="w-48"
       >
-        <DropdownMenuGroup>
+        <DropdownMenuGroup className="max-h-48 scrollbar-thin overflow-auto">
           {items.map((item) => (
             <DropdownMenuItem
               key={item.value}

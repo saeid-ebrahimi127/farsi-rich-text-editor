@@ -27,9 +27,9 @@ export const ToolbarAddVideo = ({ editor }: { editor: Editor }) => {
           onCloseAutoFocus={(e) => {
             e.preventDefault()
           }}
-          className="max-h-48 w-48 scrollbar-thin overflow-auto"
+          className="w-48"
         >
-          <DropdownMenuGroup>
+          <DropdownMenuGroup className="max-h-48 scrollbar-thin overflow-auto">
             <DropdownMenuItem onSelect={() => setOpenVideoURLDialog(true)}>
               <ChevronLeftIcon />
               افزودن آدرس (URL)
