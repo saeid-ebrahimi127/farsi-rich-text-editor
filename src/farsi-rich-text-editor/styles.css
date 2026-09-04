@@ -7,8 +7,22 @@
   --tw-prose-quote-borders: var(--color-primary);
 }
 
+.prose p,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose blockquote,
+.prose ul,
+.prose ol,
+.prose table,
+.prose pre,
+.prose hr,
+.prose video {
+  @apply mt-0;
+}
+
 .prose hr {
-  @apply my-[1.5em];
+  @apply mb-[1.5em];
 }
 
 .prose a {

@@ -17,7 +17,8 @@ export const VideoURL = Node.create({
     return [
       'div',
       mergeAttributes({
-        class: 'video-wrapper relative mx-auto aspect-video w-full max-w-3xl',
+        class:
+          'video-wrapper relative mx-auto mb-[2em] aspect-video w-full max-w-3xl',
       }),
       [
         'video',

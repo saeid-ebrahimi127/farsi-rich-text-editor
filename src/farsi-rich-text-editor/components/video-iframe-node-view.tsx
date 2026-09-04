@@ -19,7 +19,7 @@ export const VideoIFrameNodeView = ({ node, deleteNode }: NodeViewProps) => {
   return (
     <NodeViewWrapper
       as="div"
-      className="video-wrapper relative mx-auto my-[2em] aspect-video w-full max-w-3xl"
+      className="video-wrapper relative mx-auto mb-[2em] aspect-video w-full max-w-3xl"
       data-provider={node.attrs.provider}
     >
       <div

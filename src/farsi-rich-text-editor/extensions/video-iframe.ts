@@ -22,7 +22,7 @@ export const VideoIFrame = Node.create({
       mergeAttributes({
         'data-provider': node.attrs.provider,
         class:
-          'video-wrapper relative mx-auto my-[2em] aspect-video w-full max-w-3xl',
+          'video-wrapper relative mx-auto mb-[2em] aspect-video w-full max-w-3xl',
       }),
       [
         'iframe',

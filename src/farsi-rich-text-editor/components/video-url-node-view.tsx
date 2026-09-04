@@ -19,7 +19,7 @@ export const VideoURLNodeView = ({ node, deleteNode }: NodeViewProps) => {
   return (
     <NodeViewWrapper
       as="div"
-      className="video-wrapper relative mx-auto aspect-video w-full max-w-3xl"
+      className="video-wrapper relative mx-auto mb-[2em] aspect-video w-full max-w-3xl"
     >
       <div
         onMouseEnter={() => setHovered(true)}
