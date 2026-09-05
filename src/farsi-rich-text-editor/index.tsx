@@ -1,6 +1,7 @@
 import { SimpleLoading } from '#/components/simple-loading.tsx'
 import { Button } from '#/components/ui/button.tsx'
 import { FRTE_Content } from '#/farsi-rich-text-editor/content.tsx'
+import { Audio } from '#/farsi-rich-text-editor/extensions/audio.ts'
 import { RtlColumnResizing } from '#/farsi-rich-text-editor/extensions/column-resizing.ts'
 import { CustomCodeBlock } from '#/farsi-rich-text-editor/extensions/custom-code-block.ts'
 import { Image } from '#/farsi-rich-text-editor/extensions/image.ts'
@@ -80,6 +81,7 @@ export const FarsiRichTextEditor = ({
       }),
 
       Image,
+      Audio,
     ],
     editorProps: {
       handleClick(_, _2, event) {

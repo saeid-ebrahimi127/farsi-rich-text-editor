@@ -18,7 +18,8 @@
 .prose pre,
 .prose hr,
 .prose video,
-.prose img {
+.prose img,
+.prose audio {
   @apply mt-0;
 }
 

@@ -51,6 +51,7 @@
 - **جاسازی ویدئو**: افزودن ویدئو از طریق **آدرس (URL)** یا **جاسازی کد IFrame** با پشتیبانی از آپارات و سایر سرویس‌ها
 - **حذف ویدئو**: دکمه حذف سریع ویدئو در گوشه ویدئو
 - **افزودن عکس**: درج عکس با **آدرس (URL)** و متن جایگزین، با قابلیت نمایش **تمام‌عرض / اندازه پیش‌فرض** و حذف
+- **افزودن صدا**: درج صدا با **آدرس (URL)** و قابلیت پخش و حذف
 - **بلاک کد**: درج کد با **هایلایت سینتکس** برای HTML ، CSS ، JavaScript ، TypeScript ، PHP ، Python ، JSON ، Bash ، SQL و Markdown (با جهت LTR خودکار)
 
 <strong>امکانات اختصاصی فارسی</strong>
@@ -136,6 +137,7 @@ function App() {
 | `extensions/video-url.ts`                  | نود ویدئو با آدرس (URL) — نودویو با دکمه حذف    |
 | `extensions/video-iframe.ts`               | نود ویدئو IFrame چندسرویسی — نودویو با دکمه حذف |
 | `extensions/image.ts`                      | نود عکس با گزینه عرض کامل و دکمه حذف            |
+| `extensions/audio.ts`                      | نود صدا با پخش‌کننده داخلی و دکمه حذف           |
 | `extensions/custom-code-block.ts`          | بلاک کد lowlight با جهت خودکار LTR              |
 | `extensions/column-resizing.ts`            | تغییر اندازه ستون جدول با پشتیبانی RTL          |
 | `extensions/rtl-table-arrow-navigation.ts` | ناوبری با کلیدهای جهت‌دار در جدول RTL           |
@@ -148,6 +150,7 @@ function App() {
 | `zod-schema/table.ts`        | اعتبارسنجی تعداد سطر و ستون جدول (۱ تا ۱۰)      |
 | `zod-schema/video-iframe.ts` | اعتبارسنجی کد IFrame با سیستم تشخیص سرویس‌دهنده |
 | `zod-schema/image.ts`        | اعتبارسنجی آدرس و متن جایگزین عکس               |
+| `zod-schema/audio.ts`        | اعتبارسنجی آدرس صدا                             |
 | `zod-schema/boolean.ts`      | اعتبارسنجی مقدار بولین (برای فرم‌های چک‌باکس)   |
 
 ## 📁 ساختار پروژه
@@ -163,6 +166,7 @@ src/
 │   │   ├── video-url.ts               # اکستنشن درج ویدئو از طریق آدرس (URL)
 │   │   ├── video-iframe.ts             # اکستنشن جاسازی ویدئو (IFrame)
 │   │   ├── image.ts                    # اکستنشن عکس با عرض کامل
+│   │   ├── audio.ts                    # اکستنشن صدا با پخش‌کننده
 │   │   ├── custom-code-block.ts        # اکستنشن بلاک کد با هایلایت سینتکس
 │   │   ├── column-resizing.ts          # تغییر اندازه ستون جدول (RTL)
 │   │   └── rtl-table-arrow-navigation.ts  # ناوبری کلیدهای جهت‌دار جدول (RTL)
@@ -172,6 +176,7 @@ src/
 │   │   ├── video-url-node-view.tsx      # نود ویدئو با آدرس (دکمه حذف)
 │   │   ├── video-iframe-node-view.tsx   # نود ویدئو IFrame (دکمه حذف)
 │   │   ├── image-node-view.tsx          # نود عکس (عرض کامل و حذف)
+│   │   ├── audio-node-view.tsx          # نود صدا (پخش و حذف)
 │   │   ├── table-bubble-menu.tsx        # منوی حبابکی جدول
 │   │   └── link-bubble-menu.tsx         # منوی حبابکی لینک
 │   ├── toolbar/                        # نوار ابزار و کامپوننت‌های آن
