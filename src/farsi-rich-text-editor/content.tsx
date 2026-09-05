@@ -36,7 +36,7 @@ export const FRTE_Content = ({
       ) : (
         <EditorContent
           editor={editor}
-          className="prose min-h-96 scrollbar-thin overflow-auto [&_.ProseMirror]:outline-none"
+          className="prose h-96 max-h-96 scrollbar-thin overflow-auto [&_.ProseMirror]:outline-none"
         />
       )}
     </div>
