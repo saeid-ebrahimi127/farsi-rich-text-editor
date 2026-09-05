@@ -40,7 +40,7 @@ There are **no tests** in the repo — don't attempt to run a test suite.
 
 ## Architecture
 
-- **Editor core:** `src/components/farsi-rich-text-editor/` — `index.tsx` wires up Tiptap extensions and the toolbar/content/footer; `toolbar/` holds one component per feature; custom nodes/plugsin live in `extensions/`; `helpers/` has editor-utility helpers.
+- **Editor core:** `src/farsi-rich-text-editor/` — `index.tsx` wires up Tiptap extensions and the toolbar/content/footer; `toolbar/` holds one component per feature; custom nodes/extensions live in `extensions/`; `components/` holds node views and bubble menus; `utils/` has editor-utility helpers.
 - **Routing:** TanStack Router file-based. Routes live in `src/routes/` (`__root.tsx` is the shell with RTL, tooltip, and toaster providers; `index.tsx` is the single page). See the codegen note above.
 - **Toolbar feature example:** buttons track active state via `useEditorState(... editor.isActive('strike') ...)` — note Tiptap's mark/command names (e.g. `strike`, not `strikethrough`). Use `useEditorState` selectors to avoid re-rendering the toolbar on every keystroke.
 - Zod schemas for form validation live in `src/zod-schema/`.
