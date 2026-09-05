@@ -17,7 +17,8 @@
 .prose table,
 .prose pre,
 .prose hr,
-.prose video {
+.prose video,
+.prose img {
   @apply mt-0;
 }
 

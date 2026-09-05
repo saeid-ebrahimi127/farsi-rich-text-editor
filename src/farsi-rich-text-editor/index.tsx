@@ -3,6 +3,7 @@ import { Button } from '#/components/ui/button.tsx'
 import { FRTE_Content } from '#/farsi-rich-text-editor/content.tsx'
 import { RtlColumnResizing } from '#/farsi-rich-text-editor/extensions/column-resizing.ts'
 import { CustomCodeBlock } from '#/farsi-rich-text-editor/extensions/custom-code-block.ts'
+import { Image } from '#/farsi-rich-text-editor/extensions/image.ts'
 import { RtlTableArrowNavigation } from '#/farsi-rich-text-editor/extensions/rtl-table-arrow-navigation.ts'
 import { VideoIFrame } from '#/farsi-rich-text-editor/extensions/video-iframe.ts'
 import { VideoURL } from '#/farsi-rich-text-editor/extensions/video-url.ts'
@@ -77,6 +78,8 @@ export const FarsiRichTextEditor = ({
       CustomCodeBlock.configure({
         lowlight,
       }),
+
+      Image,
     ],
     editorProps: {
       handleClick(_, _2, event) {

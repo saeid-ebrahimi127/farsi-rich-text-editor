@@ -1,4 +1,5 @@
 import { Separator } from '#/components/ui/separator.tsx'
+import { ToolbarAddImage } from '#/farsi-rich-text-editor/toolbar/add-image.tsx'
 import { ToolbarAddModifyCodeBlock } from '#/farsi-rich-text-editor/toolbar/add-modify-code-block.tsx'
 import { ToolbarAddModifyLink } from '#/farsi-rich-text-editor/toolbar/add-modify-link.tsx'
 import { ToolbarAddTable } from '#/farsi-rich-text-editor/toolbar/add-table.tsx'
@@ -144,6 +145,7 @@ export const FRTE_Toolbar = ({ editor }: { editor: Editor }) => {
       <Separator orientation="vertical" />
       <ToolbarAddTable editor={editor} />
       <ToolbarAddModifyLink editor={editor} />
+      <ToolbarAddImage editor={editor} />
       <ToolbarAddVideo editor={editor} />
       <ToolbarEmojiPicker editor={editor} />
     </div>
